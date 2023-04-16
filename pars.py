@@ -1,5 +1,4 @@
 import os
-from lex import tokenize
 from xmltodict import unparse
 
 def main(folder):
@@ -7,34 +6,62 @@ def main(folder):
         parse(folder + "/" + file)
 
 
+# Top-down recursive-descent parser (LL(1))
 def parse(file):
     text = open(file, "r").read()
-    tokens = tokenize(text)
+    text = removeWhitespace(text)
+    text += "👾" # eof
 
-    ast = parseTokens(tokens)
-    outputXML(ast, "asdf.txt")
+    print(text)
 
-# Top-down recursive-descent parser (LL(1))
-def parseTokens(tokens):
-    return {
-    'PROG': {
-        '@id': '1',
-        '@children': '2,3',
+    parser = Parser(text)
+    parser.woodoomagic()
+    # ast = parse()
+    # outputXML(ast, file)
 
-        'ALGO': {
-            '@id': '2',
-            '@children': '4,5,6'
-        },
+# Smart whitespace remove
+# Ignore whitespace in strings and comments
+def removeWhitespace(text):
+    newText = ""
 
-        'PROCDEFS': {
-            '@id': '3',
-            '@children': ''
-        }
-    }
-}
+    inString = False
+    inComment = False
+    for c in text:
+        if c == "\"":
+            inString = not inString
+        if c == "*":
+            inComment = not inComment
+
+        if inString or inComment or not str(c).isspace(): # TODO: Fix for ASCII > 32
+            newText += c
+    
+    return newText
+
+class Parser:
+
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.index = 0
+        self.lookahead = None
+    
+    def nextToken(self):
+        if self.lookahead is None:
+            self.lookahead = self.tokens[self.index]
+        self.index += 1
+        self.lookahead = self.tokens[self.index]
+    
+    def match(self, token):
+        if self.lookahead == token:
+            self.nextToken()
+        else:
+            raise Exception("Syntax error: expected " + token + " but got " + self.lookahead)
+
+    def parseExpr(self):
+        pass
 
 def outputXML(ast, file):
-    outFile = file[:-4] + ".xml"
+    outFile = file.replace("inputs", "outputs")
+    outFile = outFile[:-4] + ".xml"
 
     xml = unparse(ast, pretty=True)
     open(outFile, "w").write(xml)
