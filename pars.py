@@ -1,4 +1,6 @@
 import os
+from lex import tokenize
+from json import dumps
 from xmltodict import unparse
 
 def main(folder):
@@ -10,12 +12,16 @@ def main(folder):
 def parse(file):
     text = open(file, "r").read()
     text = removeWhitespace(text)
-    text += "👾" # eof
 
-    print(text)
+    print("INPUT " + file + ":")
+    print(text + "\n")
+
+    tokens = tokenize(text)
+
+    print(dumps(tokens))
 
     parser = Parser(text)
-    parser.woodoomagic()
+    # parser.woodoomagic()
     # ast = parse()
     # outputXML(ast, file)
 
@@ -41,14 +47,15 @@ class Parser:
 
     def __init__(self, tokens):
         self.tokens = tokens
-        self.index = 0
+        self.index = 0 # tok
         self.lookahead = None
     
     def nextToken(self):
         if self.lookahead is None:
-            self.lookahead = self.tokens[self.index]
+            return self.tokens[self.index]
+
         self.index += 1
-        self.lookahead = self.tokens[self.index]
+        return self.tokens[self.index]
     
     def match(self, token):
         if self.lookahead == token:

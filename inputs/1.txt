@@ -1,8 +1,9 @@
 n1 := 69.00;
 n2 := 10;
 s1 := "The quick brown";
-s1 := "fox jumps over ";
-s1 := "the lazy dog.  ";
+s2 := "fox jumps over ";
+s3 := "the lazy dog.  ";
+n3 := 0.00;
 
 i (E(n1,n2)) t {
     r s1

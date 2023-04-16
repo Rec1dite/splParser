@@ -1,25 +1,17 @@
-tokens = {
-    "asdf"  : "asdf",
+singles = ",p}{0123456789;hcw()itenbsamd-.TF^v!E<>gor"
+
+regexes = [
+    ":=",
+    "0.00",
+    "\"",
+    "*"
+]
+
+toks = {
+
     "!"     : "!",
-    "("     : "(",
-    ")"     : ")",
-    ","     : ",",
     "-"     : "-",
     "."     : ".",
-
-    "0"   : "DIGIT",
-    "1"   : "DIGIT",
-    "2"   : "DIGIT",
-    "3"   : "DIGIT",
-    "4"   : "DIGIT",
-    "5"   : "DIGIT",
-    "6"   : "DIGIT",
-    "7"   : "DIGIT",
-    "8"   : "DIGIT",
-    "9"   : "DIGIT",
-
-    ":="    : ":=",
-    ";"     : ";",
     "<"     : "<",
     "C"     : "C",
     "E"     : "E",
@@ -27,41 +19,53 @@ tokens = {
     "T"     : "T",
     "\""    : "QUOTE",
     "^"     : "^",
-    "a"     : "a",
-    "b"     : "b",
-    "c"     : "c",
-    "d"     : "d",
-    "g"     : "g",
-    "h"     : "h",
-    "m"     : "m",
-    "n"     : "n",
-    "o"     : "o",
-    "p"     : "p",
-    "r"     : "r",
-    "s"     : "s",
-    "v"     : "v",
-    "{"     : "{",
     "|"     : "|",
-    "}"     : "}",
 }
 
 def tokenize(text):
-    # Remove newlines
-    print(text)
+    tokens = []
+    skip_ahead = 0
+    for i, c in enumerate(text):
+        if skip_ahead > 0:
+            skip_ahead -= 1
+            continue
 
-eg = {
-    'PROG': {
-        '@id': '1',
-        '@children': '2,3',
+        if c == ':' and i+1 < len(text) and text[i+1] == '=': # :=
+            tokens.append(":=")
+            skip_ahead = 1
+        elif c == '0' and i+3 < len(text) and text[i:i+4] == "0.00": # 0.00
+            tokens.append("0.00")
+            skip_ahead = 3
+        elif c == '"' and i+16 < len(text) and text[i+16] == '"': # "string"
+            tokens.append("\"" + text[i+1:i+16])
+            skip_ahead = 16
+        elif c == '*' and i+16 < len(text) and text[i+16] == '*': # *comment*
+            tokens.append("*" + text[i+1:i+16])
+            skip_ahead = 16
+        else:
+            if c in singles:
+                tokens.append(str(c))
+            else:
+                print("\033[91mSyntax error: unexpected character: " + c + "\033[0m")
+                print(text[:i] + "\033[91m" + c + "\033[0m" + text[i+1:])
+                exit()
+        
+    tokens.append("$") # eof
+    return tokens
 
-        'ALGO': {
-            '@id': '2',
-            '@children': '4,5,6'
-        },
+# exampleAST = {
+#     'PROG': {
+#         '@id': '1',
+#         '@children': '2,3',
 
-        'PROCDEFS': {
-            '@id': '3',
-            '@children': ''
-        }
-    }
-}
+#         'ALGO': {
+#             '@id': '2',
+#             '@children': '4,5,6'
+#         },
+
+#         'PROCDEFS': {
+#             '@id': '3',
+#             '@children': ''
+#         }
+#     }
+# }
