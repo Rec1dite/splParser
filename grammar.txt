@@ -1,0 +1,92 @@
+//===== PROGRAM =====//
+PROGR       -> ALGO PROCDEFS //program is a sequence of instructions + procedure definitions
+PROCDEFS    -> ,PROC PROCDEFS //comma-separated list of procedure definitions
+PROCDEFS    -> ε
+
+//===== PROCEDURES =====//
+PROC        -> p DIGITS{PROGR} //Proc can possibly have inner Proc-Defs
+
+DIGITS      -> D MORE
+D           -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 //digits
+MORE        -> DIGITS
+MORE        -> ε
+
+//===== INSTRUCTIONS =====//
+ALGO        -> INSTR COMMENT SEQ //a single instruction + comment; semi-colons are interleaved
+
+SEQ         -> ; ALGO //sequence of instructions
+SEQ         -> ε
+
+//===== INSTRUCTION TYPES =====//
+INSTR       -> INPUT
+INSTR       -> OUTPUT
+INSTR       -> ASSIGN
+INSTR       -> CALL
+INSTR       -> LOOP
+INSTR       -> BRANCH
+INSTR       -> h //halt
+
+//===== CALL PROCEDURE =====//
+CALL        -> c pDIGITS //Call a procedure for execution, pDIGITS is proc name
+
+//===== VARIABLE ASSIGNMENT =====//
+ASSIGN      -> NUMVAR := NUMEXPR
+ASSIGN      -> BOOLVAR := BOOLEXPR
+ASSIGN      -> STRINGV := STRI
+
+//===== CONTROL FLOW =====//
+LOOP        -> w(BOOLEXPR)t{ALGO}ELSE //w stands for while
+
+BRANCH      -> i(BOOLEXPR)t{ALGO}ELSE //i stands for if
+
+ELSE        -> e{ALGO} //e stands for else
+ELSE        -> ε
+
+//===== VARIABLE TYPES =====//
+NUMVAR      -> n DIGITS //n stands for numeric      |
+BOOLVAR     -> b DIGITS //b stands for boolean      |- hard-coded into the syntax
+STRINGV     -> s DIGITS //s stands for stringish    |
+
+//===== ARITHMETIC EXPRESSIONS =====//
+NUMEXPR     -> a(NUMEXPR,NUMEXPR)   //addition
+NUMEXPR     -> m(NUMEXPR,NUMEXPR)   //multiplication
+NUMEXPR     -> d(NUMEXPR,NUMEXPR)   //division
+NUMEXPR     -> NUMVARA              // value of a variable
+NUMEXPR     -> DECNUM //decimal number with at most 2 digits after the decimal point
+
+//===== DECIMAL NUMBERS =====//
+DECNUM      -> 0.00 | NEG | POS
+
+NEG         -> -POS
+POS         -> INT.DD //INT followed by a decimal point and 2 digits
+INT         -> 1MORE | 2MORE | 3MORE | 4MORE | 5MORE | 6MORE | 7MORE | 8MORE | 9MORE
+
+//===== BOOLEAN EXPRESSIONS =====//
+BOOLEXPR    -> LOGIC
+BOOLEXPR    -> CMPR //comparison of numbers
+
+LOGIC       -> BOOLVAR
+LOGIC       -> T | F
+LOGIC       -> ^(BOOLEXPR, BOOLEXPR) //AND conjunction
+LOGIC       -> v(BOOLEXPR, BOOLEXPR) //OR disjunction
+LOGIC       -> !(BOOLEXPR, BOOLEXPR) //NOT disjunction
+
+//===== COMPARISON OPERATORS =====//
+CMPR        -> E(NUMEXPR, NUMEXPR) //equality comparison
+CMPR        -> <(NUMEXPR, NUMEXPR) //less than comparison
+CMPR        -> >(NUMEXPR, NUMEXPR) //greater than comparison
+
+//===== STRINGS =====//
+STRI        -> "CCCCCCCCCCCCCCC" //short string of constant length 15
+C           -> a | b | c | ... //All ASCII characters
+
+//===== COMMENTS =====//
+COMMENT     -> *CCCCCCCCCCCCCCC* //short comment of constant length 15
+COMMENT     -> ε
+
+//===== INPUT/OUTPUT =====//
+INPUT       -> g NUMVAR //g stands for get user input
+OUTPUT      -> TEXT | VALUE
+
+VALUE       -> o NUMVAR //o stands for output
+TEXT        -> r STRINGV //r stands for response
