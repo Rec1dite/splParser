@@ -1,0 +1,15 @@
+n1 := 69.00;
+n2 := 10;
+s1 := "The quick brown";
+s1 := "fox jumps over ";
+s1 := "the lazy dog.  ";
+
+i (E(n1,n2)) t {
+    r s1
+} e {
+    i (>n1,n2) t {
+        r s2
+    } e {
+        r s3
+    }
+}

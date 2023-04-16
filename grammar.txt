@@ -78,7 +78,7 @@ CMPR        -> >(NUMEXPR, NUMEXPR) //greater than comparison
 
 //===== STRINGS =====//
 STRI        -> "CCCCCCCCCCCCCCC" //short string of constant length 15
-C           -> a | b | c | ... //All ASCII characters
+C           -> a | b | c | ... //All ASCII characters > 32
 
 //===== COMMENTS =====//
 COMMENT     -> *CCCCCCCCCCCCCCC* //short comment of constant length 15
