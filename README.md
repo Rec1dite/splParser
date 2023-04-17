@@ -1,7 +1,7 @@
 # SPL Parser
 
-> A simple parser for SPL (Student Programming Language), a fictitious programming language invented by my professor (See grammar.txt).
-
+> A simple parser for SPL (Student Programming Language), a fictitious programming language invented by my professor, [Prof G](http://www.stefan-gruner.de/) (See `grammar.txt`).
+>
 > The program takes as input a set of SPL/TXT files, and outputs the corresponding abstract syntax tree (AST) in XML format.
 
 To run the code, make sure that the requirements are installed through pip: `pip3 install -r requirements.txt`
