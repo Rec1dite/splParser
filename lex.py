@@ -1,12 +1,5 @@
 singles = ",p}{0123456789;hcw()itenbsamd-.TF^v!E<>gor"
 
-regexes = [
-    ":=",
-    "0.00",
-    "\"",
-    "*"
-]
-
 def tokenize(text):
     tokens = []
     skip_ahead = 0
@@ -37,20 +30,3 @@ def tokenize(text):
         
     tokens.append("$") # eof
     return tokens
-
-# exampleAST = {
-#     'PROG': {
-#         '@id': '1',
-#         '@children': '2,3',
-
-#         'ALGO': {
-#             '@id': '2',
-#             '@children': '4,5,6'
-#         },
-
-#         'PROCDEFS': {
-#             '@id': '3',
-#             '@children': ''
-#         }
-#     }
-# }

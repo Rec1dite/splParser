@@ -1,4 +1,0 @@
-<PROG id="1" children="2,3">
-<ALGO id="2" children="4,5,6"></ALGO>
-<PROCDEFS id="3" children=""></PROCDEFS>
-</PROG>
