@@ -3,13 +3,13 @@ import sys
 from lex import tokenize
 from json import dumps
 from xmltodict import unparse
+import re
 
 def parseFolder(folder):
     for file in os.listdir(folder):
         try:
             print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
             parse(folder + os.sep + file)
-            print("\033[92m", "PARSING SUCCESS", "\033[0m")
             print("=" * (50 + len(file)))
         except Exception as e:
             print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
@@ -18,7 +18,6 @@ def parseFile(file):
     try:
         print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
         parse(file)
-        print("\033[92m", "PARSING SUCCESS", "\033[0m")
         print("=" * (50 + len(file)))
     except Exception as e:
         print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
@@ -42,9 +41,11 @@ def parse(file):
     # print(dumps(ast, indent=2))
     # ast = parser.ast
 
+    print("\033[92m", "PARSING SUCCESS", "\033[0m")
+
     # outputJSON(ast, file)
     xmlAST = convertASTForXML(ast)
-    outputXML({"root": xmlAST}, file)
+    outputXML({"PROGR": xmlAST}, file)
 
 # Smart whitespace remove
 # Ignore whitespace in strings and comments
@@ -192,18 +193,16 @@ class Parser:
     def d_(self):
         if self.currentToken() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]: # FIRST(D)
             # D -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-            nodes = []
 
-            # TODO: Check
-            # node = self.tNode(self.currentToken())
-            # self.match(self.currentToken())
-
-            # return node
-
+            node = self.tNode(self.currentToken())
             self.match(self.currentToken())
-            nodes.append(self.tNode(self.currentToken()))
 
-            return self.nNode("D", nodes)
+            return node
+
+            # self.match(self.currentToken())
+            # nodes.append(self.tNode(self.currentToken()))
+
+            # return self.nNode("D", nodes)
 
         
         else:
@@ -951,7 +950,19 @@ def outputXML(ast, file):
 
     xml = unparse(ast, pretty=True)
 
-    open(outFile, "w").write(xml)
+    # Remove ids in tagnames
+    clean_xml = ""
+
+    for line in xml.splitlines():
+        matches = re.finditer(r"<\/?[a-zA-Z]+(-\d+)", line)
+        for match in matches:
+            cap = match.group(1)
+            line = line.replace(cap, "")
+        
+        clean_xml += line + "\n"
+
+    open(outFile, "w").write(clean_xml)
+    print("> XML OUTPUT: \033[93m" + outFile + "\033[0m")
 
 def printHelp():
     print("""
