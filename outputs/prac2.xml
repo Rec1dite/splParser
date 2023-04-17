@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root id="657" children="262,656">
+	<ALGO-262 id="262" children="11,12,261">
+		<INSTR-11 id="11" children="10">
+			<ASSIGN-10 id="10" children="5,6,9">
+				<BOOLVAR-5 id="5" children="0,4">
+					<term-0 id="0" children="">b</term-0>
+					<DIGITS-4 id="4" children="2,3">
+						<D-2 id="2" children="1">
+							<term-1 id="1" children="">:=</term-1>
+						</D-2>
+						<MORE-3 id="3" children=""></MORE-3>
+					</DIGITS-4>
+				</BOOLVAR-5>
+				<term-6 id="6" children="">:=</term-6>
+				<BOOLEXPR-9 id="9" children="8">
+					<LOGIC-8 id="8" children="7">
+						<term-7 id="7" children="">T</term-7>
+					</LOGIC-8>
+				</BOOLEXPR-9>
+			</ASSIGN-10>
+		</INSTR-11>
+		<COMMENT-12 id="12" children=""></COMMENT-12>
+		<SEQ-261 id="261" children="13,260">
+			<term-13 id="13" children="">;</term-13>
+			<ALGO-260 id="260" children="25,26,259">
+				<INSTR-25 id="25" children="24">
+					<ASSIGN-24 id="24" children="19,20,23">
+						<BOOLVAR-19 id="19" children="14,18">
+							<term-14 id="14" children="">b</term-14>
+							<DIGITS-18 id="18" children="16,17">
+								<D-16 id="16" children="15">
+									<term-15 id="15" children="">:=</term-15>
+								</D-16>
+								<MORE-17 id="17" children=""></MORE-17>
+							</DIGITS-18>
+						</BOOLVAR-19>
+						<term-20 id="20" children="">:=</term-20>
+						<BOOLEXPR-23 id="23" children="22">
+							<LOGIC-22 id="22" children="21">
+								<term-21 id="21" children="">F</term-21>
+							</LOGIC-22>
+						</BOOLEXPR-23>
+					</ASSIGN-24>
+				</INSTR-25>
+				<COMMENT-26 id="26" children=""></COMMENT-26>
+				<SEQ-259 id="259" children="27,258">
+					<term-27 id="27" children="">;</term-27>
+					<ALGO-258 id="258" children="51,52,257">
+						<INSTR-51 id="51" children="50">
+							<ASSIGN-50 id="50" children="37,38,49">
+								<NUMVAR-37 id="37" children="28,36">
+									<term-28 id="28" children="">n</term-28>
+									<DIGITS-36 id="36" children="30,35">
+										<D-30 id="30" children="29">
+											<term-29 id="29" children="">3</term-29>
+										</D-30>
+										<MORE-35 id="35" children="34">
+											<DIGITS-34 id="34" children="32,33">
+												<D-32 id="32" children="31">
+													<term-31 id="31" children="">:=</term-31>
+												</D-32>
+												<MORE-33 id="33" children=""></MORE-33>
+											</DIGITS-34>
+										</MORE-35>
+									</DIGITS-36>
+								</NUMVAR-37>
+								<term-38 id="38" children="">:=</term-38>
+								<NUMEXPR-49 id="49" children="48">
+									<DECNUM-48 id="48" children="47">
+										<POS-47 id="47" children="41,42,44,46">
+											<INT-41 id="41" children="39,40">
+												<term-39 id="39" children="">1</term-39>
+												<MORE-40 id="40" children=""></MORE-40>
+											</INT-41>
+											<term-42 id="42" children="">.</term-42>
+											<D-44 id="44" children="43">
+												<term-43 id="43" children="">0</term-43>
+											</D-44>
+											<D-46 id="46" children="45">
+												<term-45 id="45" children="">;</term-45>
+											</D-46>
+										</POS-47>
+									</DECNUM-48>
+								</NUMEXPR-49>
+							</ASSIGN-50>
+						</INSTR-51>
+						<COMMENT-52 id="52" children=""></COMMENT-52>
+						<SEQ-257 id="257" children="53,256">
+							<term-53 id="53" children="">;</term-53>
+							<ALGO-256 id="256" children="228,229,255">
+								<INSTR-228 id="228" children="227">
+									<LOOP-227 id="227" children="54,55,77,78,79,225,226">
+										<term-54 id="54" children="">w</term-54>
+										<term-55 id="55" children="">(</term-55>
+										<BOOLEXPR-77 id="77" children="76">
+											<LOGIC-76 id="76" children="56,57,65,66,74,75">
+												<term-56 id="56" children="">v</term-56>
+												<term-57 id="57" children="">(</term-57>
+												<BOOLEXPR-65 id="65" children="64">
+													<LOGIC-64 id="64" children="63">
+														<BOOLVAR-63 id="63" children="58,62">
+															<term-58 id="58" children="">b</term-58>
+															<DIGITS-62 id="62" children="60,61">
+																<D-60 id="60" children="59">
+																	<term-59 id="59" children="">,</term-59>
+																</D-60>
+																<MORE-61 id="61" children=""></MORE-61>
+															</DIGITS-62>
+														</BOOLVAR-63>
+													</LOGIC-64>
+												</BOOLEXPR-65>
+												<term-66 id="66" children="">,</term-66>
+												<BOOLEXPR-74 id="74" children="73">
+													<LOGIC-73 id="73" children="72">
+														<BOOLVAR-72 id="72" children="67,71">
+															<term-67 id="67" children="">b</term-67>
+															<DIGITS-71 id="71" children="69,70">
+																<D-69 id="69" children="68">
+																	<term-68 id="68" children="">)</term-68>
+																</D-69>
+																<MORE-70 id="70" children=""></MORE-70>
+															</DIGITS-71>
+														</BOOLVAR-72>
+													</LOGIC-73>
+												</BOOLEXPR-74>
+												<term-75 id="75" children="">)</term-75>
+											</LOGIC-76>
+										</BOOLEXPR-77>
+										<term-78 id="78" children="">)</term-78>
+										<term-79 id="79" children="">{</term-79>
+										<ALGO-225 id="225" children="117,118,224">
+											<INSTR-117 id="117" children="116">
+												<OUTPUT-116 id="116" children="115">
+													<VALUE-115 id="115" children="80,114">
+														<term-80 id="80" children="">o</term-80>
+														<NUMVAR-114 id="114" children="81,113">
+															<term-81 id="81" children="">n</term-81>
+															<DIGITS-113 id="113" children="83,112">
+																<D-83 id="83" children="82">
+																	<term-82 id="82" children="">3</term-82>
+																</D-83>
+																<MORE-112 id="112" children="111">
+																	<DIGITS-111 id="111" children="85,110">
+																		<D-85 id="85" children="84">
+																			<term-84 id="84" children="">1</term-84>
+																		</D-85>
+																		<MORE-110 id="110" children="109">
+																			<DIGITS-109 id="109" children="87,108">
+																				<D-87 id="87" children="86">
+																					<term-86 id="86" children="">2</term-86>
+																				</D-87>
+																				<MORE-108 id="108" children="107">
+																					<DIGITS-107 id="107" children="89,106">
+																						<D-89 id="89" children="88">
+																							<term-88 id="88" children="">3</term-88>
+																						</D-89>
+																						<MORE-106 id="106" children="105">
+																							<DIGITS-105 id="105" children="91,104">
+																								<D-91 id="91" children="90">
+																									<term-90 id="90" children="">1</term-90>
+																								</D-91>
+																								<MORE-104 id="104" children="103">
+																									<DIGITS-103 id="103" children="93,102">
+																										<D-93 id="93" children="92">
+																											<term-92 id="92" children="">2</term-92>
+																										</D-93>
+																										<MORE-102 id="102" children="101">
+																											<DIGITS-101 id="101" children="95,100">
+																												<D-95 id="95" children="94">
+																													<term-94 id="94" children="">3</term-94>
+																												</D-95>
+																												<MORE-100 id="100" children="99">
+																													<DIGITS-99 id="99" children="97,98">
+																														<D-97 id="97" children="96">
+																															<term-96 id="96" children="">;</term-96>
+																														</D-97>
+																														<MORE-98 id="98" children=""></MORE-98>
+																													</DIGITS-99>
+																												</MORE-100>
+																											</DIGITS-101>
+																										</MORE-102>
+																									</DIGITS-103>
+																								</MORE-104>
+																							</DIGITS-105>
+																						</MORE-106>
+																					</DIGITS-107>
+																				</MORE-108>
+																			</DIGITS-109>
+																		</MORE-110>
+																	</DIGITS-111>
+																</MORE-112>
+															</DIGITS-113>
+														</NUMVAR-114>
+													</VALUE-115>
+												</OUTPUT-116>
+											</INSTR-117>
+											<COMMENT-118 id="118" children=""></COMMENT-118>
+											<SEQ-224 id="224" children="119,223">
+												<term-119 id="119" children="">;</term-119>
+												<ALGO-223 id="223" children="159,161,222">
+													<INSTR-159 id="159" children="158">
+														<ASSIGN-158 id="158" children="129,130,157">
+															<NUMVAR-129 id="129" children="120,128">
+																<term-120 id="120" children="">n</term-120>
+																<DIGITS-128 id="128" children="122,127">
+																	<D-122 id="122" children="121">
+																		<term-121 id="121" children="">3</term-121>
+																	</D-122>
+																	<MORE-127 id="127" children="126">
+																		<DIGITS-126 id="126" children="124,125">
+																			<D-124 id="124" children="123">
+																				<term-123 id="123" children="">:=</term-123>
+																			</D-124>
+																			<MORE-125 id="125" children=""></MORE-125>
+																		</DIGITS-126>
+																	</MORE-127>
+																</DIGITS-128>
+															</NUMVAR-129>
+															<term-130 id="130" children="">:=</term-130>
+															<NUMEXPR-157 id="157" children="131,132,143,144,155,156">
+																<term-131 id="131" children="">a</term-131>
+																<term-132 id="132" children="">(</term-132>
+																<NUMEXPR-143 id="143" children="142">
+																	<NUMVAR-142 id="142" children="133,141">
+																		<term-133 id="133" children="">n</term-133>
+																		<DIGITS-141 id="141" children="135,140">
+																			<D-135 id="135" children="134">
+																				<term-134 id="134" children="">3</term-134>
+																			</D-135>
+																			<MORE-140 id="140" children="139">
+																				<DIGITS-139 id="139" children="137,138">
+																					<D-137 id="137" children="136">
+																						<term-136 id="136" children="">,</term-136>
+																					</D-137>
+																					<MORE-138 id="138" children=""></MORE-138>
+																				</DIGITS-139>
+																			</MORE-140>
+																		</DIGITS-141>
+																	</NUMVAR-142>
+																</NUMEXPR-143>
+																<term-144 id="144" children="">,</term-144>
+																<NUMEXPR-155 id="155" children="154">
+																	<DECNUM-154 id="154" children="153">
+																		<POS-153 id="153" children="147,148,150,152">
+																			<INT-147 id="147" children="145,146">
+																				<term-145 id="145" children="">3</term-145>
+																				<MORE-146 id="146" children=""></MORE-146>
+																			</INT-147>
+																			<term-148 id="148" children="">.</term-148>
+																			<D-150 id="150" children="149">
+																				<term-149 id="149" children="">0</term-149>
+																			</D-150>
+																			<D-152 id="152" children="151">
+																				<term-151 id="151" children="">)</term-151>
+																			</D-152>
+																		</POS-153>
+																	</DECNUM-154>
+																</NUMEXPR-155>
+																<term-156 id="156" children="">)</term-156>
+															</NUMEXPR-157>
+														</ASSIGN-158>
+													</INSTR-159>
+													<COMMENT-161 id="161" children="160">
+														<term-160 id="160" children="">*Add 3 "to n23  *</term-160>
+													</COMMENT-161>
+													<SEQ-222 id="222" children="162,221">
+														<term-162 id="162" children="">;</term-162>
+														<ALGO-221 id="221" children="218,219,220">
+															<INSTR-218 id="218" children="217">
+																<BRANCH-217 id="217" children="163,164,196,197,198,199,214,215,216">
+																	<term-163 id="163" children="">i</term-163>
+																	<term-164 id="164" children="">(</term-164>
+																	<BOOLEXPR-196 id="196" children="195">
+																		<CMPR-195 id="195" children="165,166,177,178,193,194">
+																			<term-165 id="165" children="">&gt;</term-165>
+																			<term-166 id="166" children="">(</term-166>
+																			<NUMEXPR-177 id="177" children="176">
+																				<NUMVAR-176 id="176" children="167,175">
+																					<term-167 id="167" children="">n</term-167>
+																					<DIGITS-175 id="175" children="169,174">
+																						<D-169 id="169" children="168">
+																							<term-168 id="168" children="">3</term-168>
+																						</D-169>
+																						<MORE-174 id="174" children="173">
+																							<DIGITS-173 id="173" children="171,172">
+																								<D-171 id="171" children="170">
+																									<term-170 id="170" children="">,</term-170>
+																								</D-171>
+																								<MORE-172 id="172" children=""></MORE-172>
+																							</DIGITS-173>
+																						</MORE-174>
+																					</DIGITS-175>
+																				</NUMVAR-176>
+																			</NUMEXPR-177>
+																			<term-178 id="178" children="">,</term-178>
+																			<NUMEXPR-193 id="193" children="192">
+																				<DECNUM-192 id="192" children="191">
+																					<POS-191 id="191" children="185,186,188,190">
+																						<INT-185 id="185" children="179,184">
+																							<term-179 id="179" children="">2</term-179>
+																							<MORE-184 id="184" children="183">
+																								<DIGITS-183 id="183" children="181,182">
+																									<D-181 id="181" children="180">
+																										<term-180 id="180" children="">.</term-180>
+																									</D-181>
+																									<MORE-182 id="182" children=""></MORE-182>
+																								</DIGITS-183>
+																							</MORE-184>
+																						</INT-185>
+																						<term-186 id="186" children="">.</term-186>
+																						<D-188 id="188" children="187">
+																							<term-187 id="187" children="">0</term-187>
+																						</D-188>
+																						<D-190 id="190" children="189">
+																							<term-189 id="189" children="">)</term-189>
+																						</D-190>
+																					</POS-191>
+																				</DECNUM-192>
+																			</NUMEXPR-193>
+																			<term-194 id="194" children="">)</term-194>
+																		</CMPR-195>
+																	</BOOLEXPR-196>
+																	<term-197 id="197" children="">)</term-197>
+																	<term-198 id="198" children="">t</term-198>
+																	<term-199 id="199" children="">{</term-199>
+																	<ALGO-214 id="214" children="211,212,213">
+																		<INSTR-211 id="211" children="210">
+																			<ASSIGN-210 id="210" children="205,206,209">
+																				<BOOLVAR-205 id="205" children="200,204">
+																					<term-200 id="200" children="">b</term-200>
+																					<DIGITS-204 id="204" children="202,203">
+																						<D-202 id="202" children="201">
+																							<term-201 id="201" children="">:=</term-201>
+																						</D-202>
+																						<MORE-203 id="203" children=""></MORE-203>
+																					</DIGITS-204>
+																				</BOOLVAR-205>
+																				<term-206 id="206" children="">:=</term-206>
+																				<BOOLEXPR-209 id="209" children="208">
+																					<LOGIC-208 id="208" children="207">
+																						<term-207 id="207" children="">F</term-207>
+																					</LOGIC-208>
+																				</BOOLEXPR-209>
+																			</ASSIGN-210>
+																		</INSTR-211>
+																		<COMMENT-212 id="212" children=""></COMMENT-212>
+																		<SEQ-213 id="213" children=""></SEQ-213>
+																	</ALGO-214>
+																	<term-215 id="215" children="">}</term-215>
+																	<ELSE-216 id="216" children=""></ELSE-216>
+																</BRANCH-217>
+															</INSTR-218>
+															<COMMENT-219 id="219" children=""></COMMENT-219>
+															<SEQ-220 id="220" children=""></SEQ-220>
+														</ALGO-221>
+													</SEQ-222>
+												</ALGO-223>
+											</SEQ-224>
+										</ALGO-225>
+										<term-226 id="226" children="">}</term-226>
+									</LOOP-227>
+								</INSTR-228>
+								<COMMENT-229 id="229" children=""></COMMENT-229>
+								<SEQ-255 id="255" children="230,254">
+									<term-230 id="230" children="">;</term-230>
+									<ALGO-254 id="254" children="250,252,253">
+										<INSTR-250 id="250" children="249">
+											<CALL-249 id="249" children="231,232,248">
+												<term-231 id="231" children="">c</term-231>
+												<term-232 id="232" children="">p</term-232>
+												<DIGITS-248 id="248" children="234,247">
+													<D-234 id="234" children="233">
+														<term-233 id="233" children="">2</term-233>
+													</D-234>
+													<MORE-247 id="247" children="246">
+														<DIGITS-246 id="246" children="236,245">
+															<D-236 id="236" children="235">
+																<term-235 id="235" children="">3</term-235>
+															</D-236>
+															<MORE-245 id="245" children="244">
+																<DIGITS-244 id="244" children="238,243">
+																	<D-238 id="238" children="237">
+																		<term-237 id="237" children="">4</term-237>
+																	</D-238>
+																	<MORE-243 id="243" children="242">
+																		<DIGITS-242 id="242" children="240,241">
+																			<D-240 id="240" children="239">
+																				<term-239 id="239" children="">*Calling  proc23*</term-239>
+																			</D-240>
+																			<MORE-241 id="241" children=""></MORE-241>
+																		</DIGITS-242>
+																	</MORE-243>
+																</DIGITS-244>
+															</MORE-245>
+														</DIGITS-246>
+													</MORE-247>
+												</DIGITS-248>
+											</CALL-249>
+										</INSTR-250>
+										<COMMENT-252 id="252" children="251">
+											<term-251 id="251" children="">*Calling  proc23*</term-251>
+										</COMMENT-252>
+										<SEQ-253 id="253" children=""></SEQ-253>
+									</ALGO-254>
+								</SEQ-255>
+							</ALGO-256>
+						</SEQ-257>
+					</ALGO-258>
+				</SEQ-259>
+			</ALGO-260>
+		</SEQ-261>
+	</ALGO-262>
+	<PROCDEFS-656 id="656" children="263,654,655">
+		<term-263 id="263" children="">,</term-263>
+		<PROC-654 id="654" children="264,280,281,652,653">
+			<term-264 id="264" children="">p</term-264>
+			<DIGITS-280 id="280" children="266,279">
+				<D-266 id="266" children="265">
+					<term-265 id="265" children="">2</term-265>
+				</D-266>
+				<MORE-279 id="279" children="278">
+					<DIGITS-278 id="278" children="268,277">
+						<D-268 id="268" children="267">
+							<term-267 id="267" children="">3</term-267>
+						</D-268>
+						<MORE-277 id="277" children="276">
+							<DIGITS-276 id="276" children="270,275">
+								<D-270 id="270" children="269">
+									<term-269 id="269" children="">4</term-269>
+								</D-270>
+								<MORE-275 id="275" children="274">
+									<DIGITS-274 id="274" children="272,273">
+										<D-272 id="272" children="271">
+											<term-271 id="271" children="">{</term-271>
+										</D-272>
+										<MORE-273 id="273" children=""></MORE-273>
+									</DIGITS-274>
+								</MORE-275>
+							</DIGITS-276>
+						</MORE-277>
+					</DIGITS-278>
+				</MORE-279>
+			</DIGITS-280>
+			<term-281 id="281" children="">{</term-281>
+			<PROG-652 id="652" children="650,651">
+				<ALGO-650 id="650" children="337,339,649">
+					<INSTR-337 id="337" children="336">
+						<ASSIGN-336 id="336" children="295,296,335">
+							<NUMVAR-295 id="295" children="282,294">
+								<term-282 id="282" children="">n</term-282>
+								<DIGITS-294 id="294" children="284,293">
+									<D-284 id="284" children="283">
+										<term-283 id="283" children="">3</term-283>
+									</D-284>
+									<MORE-293 id="293" children="292">
+										<DIGITS-292 id="292" children="286,291">
+											<D-286 id="286" children="285">
+												<term-285 id="285" children="">2</term-285>
+											</D-286>
+											<MORE-291 id="291" children="290">
+												<DIGITS-290 id="290" children="288,289">
+													<D-288 id="288" children="287">
+														<term-287 id="287" children="">:=</term-287>
+													</D-288>
+													<MORE-289 id="289" children=""></MORE-289>
+												</DIGITS-290>
+											</MORE-291>
+										</DIGITS-292>
+									</MORE-293>
+								</DIGITS-294>
+							</NUMVAR-295>
+							<term-296 id="296" children="">:=</term-296>
+							<NUMEXPR-335 id="335" children="334">
+								<DECNUM-334 id="334" children="333">
+									<POS-333 id="333" children="327,328,330,332">
+										<INT-327 id="327" children="297,326">
+											<term-297 id="297" children="">1</term-297>
+											<MORE-326 id="326" children="325">
+												<DIGITS-325 id="325" children="299,324">
+													<D-299 id="299" children="298">
+														<term-298 id="298" children="">3</term-298>
+													</D-299>
+													<MORE-324 id="324" children="323">
+														<DIGITS-323 id="323" children="301,322">
+															<D-301 id="301" children="300">
+																<term-300 id="300" children="">3</term-300>
+															</D-301>
+															<MORE-322 id="322" children="321">
+																<DIGITS-321 id="321" children="303,320">
+																	<D-303 id="303" children="302">
+																		<term-302 id="302" children="">4</term-302>
+																	</D-303>
+																	<MORE-320 id="320" children="319">
+																		<DIGITS-319 id="319" children="305,318">
+																			<D-305 id="305" children="304">
+																				<term-304 id="304" children="">5</term-304>
+																			</D-305>
+																			<MORE-318 id="318" children="317">
+																				<DIGITS-317 id="317" children="307,316">
+																					<D-307 id="307" children="306">
+																						<term-306 id="306" children="">4</term-306>
+																					</D-307>
+																					<MORE-316 id="316" children="315">
+																						<DIGITS-315 id="315" children="309,314">
+																							<D-309 id="309" children="308">
+																								<term-308 id="308" children="">3</term-308>
+																							</D-309>
+																							<MORE-314 id="314" children="313">
+																								<DIGITS-313 id="313" children="311,312">
+																									<D-311 id="311" children="310">
+																										<term-310 id="310" children="">.</term-310>
+																									</D-311>
+																									<MORE-312 id="312" children=""></MORE-312>
+																								</DIGITS-313>
+																							</MORE-314>
+																						</DIGITS-315>
+																					</MORE-316>
+																				</DIGITS-317>
+																			</MORE-318>
+																		</DIGITS-319>
+																	</MORE-320>
+																</DIGITS-321>
+															</MORE-322>
+														</DIGITS-323>
+													</MORE-324>
+												</DIGITS-325>
+											</MORE-326>
+										</INT-327>
+										<term-328 id="328" children="">.</term-328>
+										<D-330 id="330" children="329">
+											<term-329 id="329" children="">0</term-329>
+										</D-330>
+										<D-332 id="332" children="331">
+											<term-331 id="331" children="">*int declaration*</term-331>
+										</D-332>
+									</POS-333>
+								</DECNUM-334>
+							</NUMEXPR-335>
+						</ASSIGN-336>
+					</INSTR-337>
+					<COMMENT-339 id="339" children="338">
+						<term-338 id="338" children="">*int declaration*</term-338>
+					</COMMENT-339>
+					<SEQ-649 id="649" children="340,648">
+						<term-340 id="340" children="">;</term-340>
+						<ALGO-648 id="648" children="380,381,647">
+							<INSTR-380 id="380" children="379">
+								<ASSIGN-379 id="379" children="350,351,378">
+									<NUMVAR-350 id="350" children="341,349">
+										<term-341 id="341" children="">n</term-341>
+										<DIGITS-349 id="349" children="343,348">
+											<D-343 id="343" children="342">
+												<term-342 id="342" children="">8</term-342>
+											</D-343>
+											<MORE-348 id="348" children="347">
+												<DIGITS-347 id="347" children="345,346">
+													<D-345 id="345" children="344">
+														<term-344 id="344" children="">:=</term-344>
+													</D-345>
+													<MORE-346 id="346" children=""></MORE-346>
+												</DIGITS-347>
+											</MORE-348>
+										</DIGITS-349>
+									</NUMVAR-350>
+									<term-351 id="351" children="">:=</term-351>
+									<NUMEXPR-378 id="378" children="377">
+										<DECNUM-377 id="377" children="376">
+											<POS-376 id="376" children="370,371,373,375">
+												<INT-370 id="370" children="352,369">
+													<term-352 id="352" children="">2</term-352>
+													<MORE-369 id="369" children="368">
+														<DIGITS-368 id="368" children="354,367">
+															<D-354 id="354" children="353">
+																<term-353 id="353" children="">4</term-353>
+															</D-354>
+															<MORE-367 id="367" children="366">
+																<DIGITS-366 id="366" children="356,365">
+																	<D-356 id="356" children="355">
+																		<term-355 id="355" children="">5</term-355>
+																	</D-356>
+																	<MORE-365 id="365" children="364">
+																		<DIGITS-364 id="364" children="358,363">
+																			<D-358 id="358" children="357">
+																				<term-357 id="357" children="">2</term-357>
+																			</D-358>
+																			<MORE-363 id="363" children="362">
+																				<DIGITS-362 id="362" children="360,361">
+																					<D-360 id="360" children="359">
+																						<term-359 id="359" children="">.</term-359>
+																					</D-360>
+																					<MORE-361 id="361" children=""></MORE-361>
+																				</DIGITS-362>
+																			</MORE-363>
+																		</DIGITS-364>
+																	</MORE-365>
+																</DIGITS-366>
+															</MORE-367>
+														</DIGITS-368>
+													</MORE-369>
+												</INT-370>
+												<term-371 id="371" children="">.</term-371>
+												<D-373 id="373" children="372">
+													<term-372 id="372" children="">5</term-372>
+												</D-373>
+												<D-375 id="375" children="374">
+													<term-374 id="374" children="">;</term-374>
+												</D-375>
+											</POS-376>
+										</DECNUM-377>
+									</NUMEXPR-378>
+								</ASSIGN-379>
+							</INSTR-380>
+							<COMMENT-381 id="381" children=""></COMMENT-381>
+							<SEQ-647 id="647" children="382,646">
+								<term-382 id="382" children="">;</term-382>
+								<ALGO-646 id="646" children="426,428,645">
+									<INSTR-426 id="426" children="425">
+										<ASSIGN-425 id="425" children="392,393,424">
+											<NUMVAR-392 id="392" children="383,391">
+												<term-383 id="383" children="">n</term-383>
+												<DIGITS-391 id="391" children="385,390">
+													<D-385 id="385" children="384">
+														<term-384 id="384" children="">2</term-384>
+													</D-385>
+													<MORE-390 id="390" children="389">
+														<DIGITS-389 id="389" children="387,388">
+															<D-387 id="387" children="386">
+																<term-386 id="386" children="">:=</term-386>
+															</D-387>
+															<MORE-388 id="388" children=""></MORE-388>
+														</DIGITS-389>
+													</MORE-390>
+												</DIGITS-391>
+											</NUMVAR-392>
+											<term-393 id="393" children="">:=</term-393>
+											<NUMEXPR-424 id="424" children="394,395,410,411,422,423">
+												<term-394 id="394" children="">a</term-394>
+												<term-395 id="395" children="">(</term-395>
+												<NUMEXPR-410 id="410" children="409">
+													<NUMVAR-409 id="409" children="396,408">
+														<term-396 id="396" children="">n</term-396>
+														<DIGITS-408 id="408" children="398,407">
+															<D-398 id="398" children="397">
+																<term-397 id="397" children="">3</term-397>
+															</D-398>
+															<MORE-407 id="407" children="406">
+																<DIGITS-406 id="406" children="400,405">
+																	<D-400 id="400" children="399">
+																		<term-399 id="399" children="">2</term-399>
+																	</D-400>
+																	<MORE-405 id="405" children="404">
+																		<DIGITS-404 id="404" children="402,403">
+																			<D-402 id="402" children="401">
+																				<term-401 id="401" children="">,</term-401>
+																			</D-402>
+																			<MORE-403 id="403" children=""></MORE-403>
+																		</DIGITS-404>
+																	</MORE-405>
+																</DIGITS-406>
+															</MORE-407>
+														</DIGITS-408>
+													</NUMVAR-409>
+												</NUMEXPR-410>
+												<term-411 id="411" children="">,</term-411>
+												<NUMEXPR-422 id="422" children="421">
+													<NUMVAR-421 id="421" children="412,420">
+														<term-412 id="412" children="">n</term-412>
+														<DIGITS-420 id="420" children="414,419">
+															<D-414 id="414" children="413">
+																<term-413 id="413" children="">8</term-413>
+															</D-414>
+															<MORE-419 id="419" children="418">
+																<DIGITS-418 id="418" children="416,417">
+																	<D-416 id="416" children="415">
+																		<term-415 id="415" children="">)</term-415>
+																	</D-416>
+																	<MORE-417 id="417" children=""></MORE-417>
+																</DIGITS-418>
+															</MORE-419>
+														</DIGITS-420>
+													</NUMVAR-421>
+												</NUMEXPR-422>
+												<term-423 id="423" children="">)</term-423>
+											</NUMEXPR-424>
+										</ASSIGN-425>
+									</INSTR-426>
+									<COMMENT-428 id="428" children="427">
+										<term-427 id="427" children="">*addition operat*</term-427>
+									</COMMENT-428>
+									<SEQ-645 id="645" children="429,644">
+										<term-429 id="429" children="">;</term-429>
+										<ALGO-644 id="644" children="469,471,643">
+											<INSTR-469 id="469" children="468">
+												<ASSIGN-468 id="468" children="439,440,467">
+													<NUMVAR-439 id="439" children="430,438">
+														<term-430 id="430" children="">n</term-430>
+														<DIGITS-438 id="438" children="432,437">
+															<D-432 id="432" children="431">
+																<term-431 id="431" children="">3</term-431>
+															</D-432>
+															<MORE-437 id="437" children="436">
+																<DIGITS-436 id="436" children="434,435">
+																	<D-434 id="434" children="433">
+																		<term-433 id="433" children="">:=</term-433>
+																	</D-434>
+																	<MORE-435 id="435" children=""></MORE-435>
+																</DIGITS-436>
+															</MORE-437>
+														</DIGITS-438>
+													</NUMVAR-439>
+													<term-440 id="440" children="">:=</term-440>
+													<NUMEXPR-467 id="467" children="441,442,453,454,465,466">
+														<term-441 id="441" children="">m</term-441>
+														<term-442 id="442" children="">(</term-442>
+														<NUMEXPR-453 id="453" children="452">
+															<NUMVAR-452 id="452" children="443,451">
+																<term-443 id="443" children="">n</term-443>
+																<DIGITS-451 id="451" children="445,450">
+																	<D-445 id="445" children="444">
+																		<term-444 id="444" children="">2</term-444>
+																	</D-445>
+																	<MORE-450 id="450" children="449">
+																		<DIGITS-449 id="449" children="447,448">
+																			<D-447 id="447" children="446">
+																				<term-446 id="446" children="">,</term-446>
+																			</D-447>
+																			<MORE-448 id="448" children=""></MORE-448>
+																		</DIGITS-449>
+																	</MORE-450>
+																</DIGITS-451>
+															</NUMVAR-452>
+														</NUMEXPR-453>
+														<term-454 id="454" children="">,</term-454>
+														<NUMEXPR-465 id="465" children="464">
+															<NUMVAR-464 id="464" children="455,463">
+																<term-455 id="455" children="">n</term-455>
+																<DIGITS-463 id="463" children="457,462">
+																	<D-457 id="457" children="456">
+																		<term-456 id="456" children="">8</term-456>
+																	</D-457>
+																	<MORE-462 id="462" children="461">
+																		<DIGITS-461 id="461" children="459,460">
+																			<D-459 id="459" children="458">
+																				<term-458 id="458" children="">)</term-458>
+																			</D-459>
+																			<MORE-460 id="460" children=""></MORE-460>
+																		</DIGITS-461>
+																	</MORE-462>
+																</DIGITS-463>
+															</NUMVAR-464>
+														</NUMEXPR-465>
+														<term-466 id="466" children="">)</term-466>
+													</NUMEXPR-467>
+												</ASSIGN-468>
+											</INSTR-469>
+											<COMMENT-471 id="471" children="470">
+												<term-470 id="470" children="">*multiplication *</term-470>
+											</COMMENT-471>
+											<SEQ-643 id="643" children="472,642">
+												<term-472 id="472" children="">;</term-472>
+												<ALGO-642 id="642" children="484,485,641">
+													<INSTR-484 id="484" children="483">
+														<ASSIGN-483 id="483" children="478,479,482">
+															<BOOLVAR-478 id="478" children="473,477">
+																<term-473 id="473" children="">b</term-473>
+																<DIGITS-477 id="477" children="475,476">
+																	<D-475 id="475" children="474">
+																		<term-474 id="474" children="">:=</term-474>
+																	</D-475>
+																	<MORE-476 id="476" children=""></MORE-476>
+																</DIGITS-477>
+															</BOOLVAR-478>
+															<term-479 id="479" children="">:=</term-479>
+															<BOOLEXPR-482 id="482" children="481">
+																<LOGIC-481 id="481" children="480">
+																	<term-480 id="480" children="">T</term-480>
+																</LOGIC-481>
+															</BOOLEXPR-482>
+														</ASSIGN-483>
+													</INSTR-484>
+													<COMMENT-485 id="485" children=""></COMMENT-485>
+													<SEQ-641 id="641" children="486,640">
+														<term-486 id="486" children="">;</term-486>
+														<ALGO-640 id="640" children="498,499,639">
+															<INSTR-498 id="498" children="497">
+																<ASSIGN-497 id="497" children="492,493,496">
+																	<BOOLVAR-492 id="492" children="487,491">
+																		<term-487 id="487" children="">b</term-487>
+																		<DIGITS-491 id="491" children="489,490">
+																			<D-489 id="489" children="488">
+																				<term-488 id="488" children="">:=</term-488>
+																			</D-489>
+																			<MORE-490 id="490" children=""></MORE-490>
+																		</DIGITS-491>
+																	</BOOLVAR-492>
+																	<term-493 id="493" children="">:=</term-493>
+																	<BOOLEXPR-496 id="496" children="495">
+																		<LOGIC-495 id="495" children="494">
+																			<term-494 id="494" children="">F</term-494>
+																		</LOGIC-495>
+																	</BOOLEXPR-496>
+																</ASSIGN-497>
+															</INSTR-498>
+															<COMMENT-499 id="499" children=""></COMMENT-499>
+															<SEQ-639 id="639" children="500,638">
+																<term-500 id="500" children="">;</term-500>
+																<ALGO-638 id="638" children="537,538,637">
+																	<INSTR-537 id="537" children="536">
+																		<ASSIGN-536 id="536" children="506,507,535">
+																			<BOOLVAR-506 id="506" children="501,505">
+																				<term-501 id="501" children="">b</term-501>
+																				<DIGITS-505 id="505" children="503,504">
+																					<D-503 id="503" children="502">
+																						<term-502 id="502" children="">:=</term-502>
+																					</D-503>
+																					<MORE-504 id="504" children=""></MORE-504>
+																				</DIGITS-505>
+																			</BOOLVAR-506>
+																			<term-507 id="507" children="">:=</term-507>
+																			<BOOLEXPR-535 id="535" children="534">
+																				<CMPR-534 id="534" children="508,509,520,521,532,533">
+																					<term-508 id="508" children="">E</term-508>
+																					<term-509 id="509" children="">(</term-509>
+																					<NUMEXPR-520 id="520" children="519">
+																						<NUMVAR-519 id="519" children="510,518">
+																							<term-510 id="510" children="">n</term-510>
+																							<DIGITS-518 id="518" children="512,517">
+																								<D-512 id="512" children="511">
+																									<term-511 id="511" children="">2</term-511>
+																								</D-512>
+																								<MORE-517 id="517" children="516">
+																									<DIGITS-516 id="516" children="514,515">
+																										<D-514 id="514" children="513">
+																											<term-513 id="513" children="">,</term-513>
+																										</D-514>
+																										<MORE-515 id="515" children=""></MORE-515>
+																									</DIGITS-516>
+																								</MORE-517>
+																							</DIGITS-518>
+																						</NUMVAR-519>
+																					</NUMEXPR-520>
+																					<term-521 id="521" children="">,</term-521>
+																					<NUMEXPR-532 id="532" children="531">
+																						<NUMVAR-531 id="531" children="522,530">
+																							<term-522 id="522" children="">n</term-522>
+																							<DIGITS-530 id="530" children="524,529">
+																								<D-524 id="524" children="523">
+																									<term-523 id="523" children="">3</term-523>
+																								</D-524>
+																								<MORE-529 id="529" children="528">
+																									<DIGITS-528 id="528" children="526,527">
+																										<D-526 id="526" children="525">
+																											<term-525 id="525" children="">)</term-525>
+																										</D-526>
+																										<MORE-527 id="527" children=""></MORE-527>
+																									</DIGITS-528>
+																								</MORE-529>
+																							</DIGITS-530>
+																						</NUMVAR-531>
+																					</NUMEXPR-532>
+																					<term-533 id="533" children="">)</term-533>
+																				</CMPR-534>
+																			</BOOLEXPR-535>
+																		</ASSIGN-536>
+																	</INSTR-537>
+																	<COMMENT-538 id="538" children=""></COMMENT-538>
+																	<SEQ-637 id="637" children="539,636">
+																		<term-539 id="539" children="">;</term-539>
+																		<ALGO-636 id="636" children="633,634,635">
+																			<INSTR-633 id="633" children="632">
+																				<BRANCH-632 id="632" children="540,541,549,550,551,552,598,599,631">
+																					<term-540 id="540" children="">i</term-540>
+																					<term-541 id="541" children="">(</term-541>
+																					<BOOLEXPR-549 id="549" children="548">
+																						<LOGIC-548 id="548" children="547">
+																							<BOOLVAR-547 id="547" children="542,546">
+																								<term-542 id="542" children="">b</term-542>
+																								<DIGITS-546 id="546" children="544,545">
+																									<D-544 id="544" children="543">
+																										<term-543 id="543" children="">)</term-543>
+																									</D-544>
+																									<MORE-545 id="545" children=""></MORE-545>
+																								</DIGITS-546>
+																							</BOOLVAR-547>
+																						</LOGIC-548>
+																					</BOOLEXPR-549>
+																					<term-550 id="550" children="">)</term-550>
+																					<term-551 id="551" children="">t</term-551>
+																					<term-552 id="552" children="">{</term-552>
+																					<ALGO-598 id="598" children="563,564,597">
+																						<INSTR-563 id="563" children="562">
+																							<ASSIGN-562 id="562" children="558,559,561">
+																								<STRINGV-558 id="558" children="553,557">
+																									<term-553 id="553" children="">s</term-553>
+																									<DIGITS-557 id="557" children="555,556">
+																										<D-555 id="555" children="554">
+																											<term-554 id="554" children="">:=</term-554>
+																										</D-555>
+																										<MORE-556 id="556" children=""></MORE-556>
+																									</DIGITS-557>
+																								</STRINGV-558>
+																								<term-559 id="559" children="">:=</term-559>
+																								<STRI-561 id="561" children="560">
+																									<term-560 id="560" children="">"The vars are =="</term-560>
+																								</STRI-561>
+																							</ASSIGN-562>
+																						</INSTR-563>
+																						<COMMENT-564 id="564" children=""></COMMENT-564>
+																						<SEQ-597 id="597" children="565,596">
+																							<term-565 id="565" children="">;</term-565>
+																							<ALGO-596 id="596" children="575,576,595">
+																								<INSTR-575 id="575" children="574">
+																									<OUTPUT-574 id="574" children="573">
+																										<TEXT-573 id="573" children="566,572">
+																											<term-566 id="566" children="">r</term-566>
+																											<STRINGV-572 id="572" children="567,571">
+																												<term-567 id="567" children="">s</term-567>
+																												<DIGITS-571 id="571" children="569,570">
+																													<D-569 id="569" children="568">
+																														<term-568 id="568" children="">;</term-568>
+																													</D-569>
+																													<MORE-570 id="570" children=""></MORE-570>
+																												</DIGITS-571>
+																											</STRINGV-572>
+																										</TEXT-573>
+																									</OUTPUT-574>
+																								</INSTR-575>
+																								<COMMENT-576 id="576" children=""></COMMENT-576>
+																								<SEQ-595 id="595" children="577,594">
+																									<term-577 id="577" children="">;</term-577>
+																									<ALGO-594 id="594" children="591,592,593">
+																										<INSTR-591 id="591" children="590">
+																											<OUTPUT-590 id="590" children="589">
+																												<VALUE-589 id="589" children="578,588">
+																													<term-578 id="578" children="">o</term-578>
+																													<NUMVAR-588 id="588" children="579,587">
+																														<term-579 id="579" children="">n</term-579>
+																														<DIGITS-587 id="587" children="581,586">
+																															<D-581 id="581" children="580">
+																																<term-580 id="580" children="">3</term-580>
+																															</D-581>
+																															<MORE-586 id="586" children="585">
+																																<DIGITS-585 id="585" children="583,584">
+																																	<D-583 id="583" children="582">
+																																		<term-582 id="582" children="">}</term-582>
+																																	</D-583>
+																																	<MORE-584 id="584" children=""></MORE-584>
+																																</DIGITS-585>
+																															</MORE-586>
+																														</DIGITS-587>
+																													</NUMVAR-588>
+																												</VALUE-589>
+																											</OUTPUT-590>
+																										</INSTR-591>
+																										<COMMENT-592 id="592" children=""></COMMENT-592>
+																										<SEQ-593 id="593" children=""></SEQ-593>
+																									</ALGO-594>
+																								</SEQ-595>
+																							</ALGO-596>
+																						</SEQ-597>
+																					</ALGO-598>
+																					<term-599 id="599" children="">}</term-599>
+																					<ELSE-631 id="631" children="600,601,629,630">
+																						<term-600 id="600" children="">e</term-600>
+																						<term-601 id="601" children="">{</term-601>
+																						<ALGO-629 id="629" children="612,613,628">
+																							<INSTR-612 id="612" children="611">
+																								<ASSIGN-611 id="611" children="607,608,610">
+																									<STRINGV-607 id="607" children="602,606">
+																										<term-602 id="602" children="">s</term-602>
+																										<DIGITS-606 id="606" children="604,605">
+																											<D-604 id="604" children="603">
+																												<term-603 id="603" children="">:=</term-603>
+																											</D-604>
+																											<MORE-605 id="605" children=""></MORE-605>
+																										</DIGITS-606>
+																									</STRINGV-607>
+																									<term-608 id="608" children="">:=</term-608>
+																									<STRI-610 id="610" children="609">
+																										<term-609 id="609" children="">"The vars are !="</term-609>
+																									</STRI-610>
+																								</ASSIGN-611>
+																							</INSTR-612>
+																							<COMMENT-613 id="613" children=""></COMMENT-613>
+																							<SEQ-628 id="628" children="614,627">
+																								<term-614 id="614" children="">;</term-614>
+																								<ALGO-627 id="627" children="624,625,626">
+																									<INSTR-624 id="624" children="623">
+																										<OUTPUT-623 id="623" children="622">
+																											<TEXT-622 id="622" children="615,621">
+																												<term-615 id="615" children="">r</term-615>
+																												<STRINGV-621 id="621" children="616,620">
+																													<term-616 id="616" children="">s</term-616>
+																													<DIGITS-620 id="620" children="618,619">
+																														<D-618 id="618" children="617">
+																															<term-617 id="617" children="">}</term-617>
+																														</D-618>
+																														<MORE-619 id="619" children=""></MORE-619>
+																													</DIGITS-620>
+																												</STRINGV-621>
+																											</TEXT-622>
+																										</OUTPUT-623>
+																									</INSTR-624>
+																									<COMMENT-625 id="625" children=""></COMMENT-625>
+																									<SEQ-626 id="626" children=""></SEQ-626>
+																								</ALGO-627>
+																							</SEQ-628>
+																						</ALGO-629>
+																						<term-630 id="630" children="">}</term-630>
+																					</ELSE-631>
+																				</BRANCH-632>
+																			</INSTR-633>
+																			<COMMENT-634 id="634" children=""></COMMENT-634>
+																			<SEQ-635 id="635" children=""></SEQ-635>
+																		</ALGO-636>
+																	</SEQ-637>
+																</ALGO-638>
+															</SEQ-639>
+														</ALGO-640>
+													</SEQ-641>
+												</ALGO-642>
+											</SEQ-643>
+										</ALGO-644>
+									</SEQ-645>
+								</ALGO-646>
+							</SEQ-647>
+						</ALGO-648>
+					</SEQ-649>
+				</ALGO-650>
+				<PROCDEFS-651 id="651" children=""></PROCDEFS-651>
+			</PROG-652>
+			<term-653 id="653" children="">}</term-653>
+		</PROC-654>
+		<PROCDEFS-655 id="655" children=""></PROCDEFS-655>
+	</PROCDEFS-656>
+</root>

@@ -95,7 +95,7 @@ class Parser:
     def tNode(self, token):
         id = str(self.counter)
         self.counter += 1
-        return {"parent": "term", "id": id, "children": []}
+        return {"parent": "term", "id": id, "children": [], "value": token}
     
     def nNode(self, name: str, children):
         id = str(self.counter)
@@ -103,7 +103,8 @@ class Parser:
         res = {
             "parent": name,
             "id": id,
-            "children": children
+            "children": children,
+            "value": ""
         }
         return res
 
@@ -897,7 +898,8 @@ def convertASTForXML(inputAST):
 
         output_node = {
             '@id': node['id'],
-            '@children': children_ids
+            '@children': children_ids,
+            '#text': node['value'],
         }
 
         for child in node['children']:
@@ -948,6 +950,7 @@ def outputXML(ast, file):
         outFile += ".xml"
 
     xml = unparse(ast, pretty=True)
+
     open(outFile, "w").write(xml)
 
 def printHelp():
