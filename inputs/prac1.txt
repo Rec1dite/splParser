@@ -1,0 +1,15 @@
+n1 := 50.00;
+g n2;
+s1123123 := "JUST PASSED!!!!";
+s2 := "PASSEDDDDDDDDDD";
+s3 := "EISH TRY AGAIN!";
+
+i (E(n1, n2)) t {
+    r s1
+} e {
+    i (>(n1, n2)) t {
+        r s2
+    } e {
+        r s3
+    }
+}
