@@ -5,7 +5,9 @@ from xmltodict import unparse
 
 def main(folder):
     for file in os.listdir(folder):
+        print("=" * 25 + " " + file + " " + "=" * 25)
         parse(folder + "/" + file)
+        print("=" * (50 + len(file)))
 
 
 # Top-down recursive-descent parser (LL(1))
@@ -20,8 +22,8 @@ def parse(file):
 
     print(dumps(tokens))
 
-    parser = Parser(text)
-    # parser.woodoomagic()
+    parser = Parser(tokens)
+    parser.progr_()
 
     # ast = parse()
     # outputXML(ast, file)
@@ -56,24 +58,27 @@ class Parser:
     
     # Test for equality of current token
     def match(self, token):
+        print(">" + token)
         if self.index >= len(self.tokens):
             raise Exception("Syntax error: unexpected EOF")
 
-        elif self.currToken() == token:
+        elif self.currentToken() == token:
             self.index += 1
 
         else:
-            raise Exception("Syntax error: unexpected " + self.currToken() + ", expected " + token)
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected " + token)
 
     def tNode(self, token):
-        return { "token": token }
-    
-    def nNode(self, name, children):
         return {
-            name: {
-                "@id": str(self.index),
-                "@children": ",".join( [str(c["@id"]) for c in children] ),
-                **children
+            "token": token
+        }
+    
+    def nNode(self, name: str, children):
+        id = str(self.index)
+        return {
+            (name + id): {
+                "@id": id,
+                # "@children": ",".join( [k for k in children.keys()] ),
             }
         }
 
@@ -185,7 +190,8 @@ class Parser:
         elif self.currentToken() in ["{", ".", ",", ";", "*", ":=", "}", "$", ")"]: # FOLLOW(MORE)
             # MORE -> epsilon
 
-            return self.nNode("MORE", [])
+            # return self.nNode("MORE", [])
+            return None
         
         else:
             raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 0-9, {, ., ,, ;, *, :=, }, $ or )")
@@ -526,9 +532,10 @@ class Parser:
             return self.nNode("NUMEXPR", nodes)
 
         else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 1, 2, 3, 4, 5, 6, 7, 8, 9, 0.00, -, n, a, m, or d")
 
     def decnum_(self):
-        if self.currentToken() in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0.00", "-"]: # FIRST(DECNUM)
+        if self.currentToken() in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]: # FIRST(DECNUM)
             # DECNUM -> POS
             nodes = []
 
@@ -554,6 +561,7 @@ class Parser:
             return self.nNode("DECNUM", nodes)
         
         else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 1, 2, 3, 4, 5, 6, 7, 8, 9, 0.00, or -")
 
     def neg_(self):
         if self.currentToken() == "-": # FIRST(NEG)
@@ -568,7 +576,7 @@ class Parser:
             return self.nNode("NEG", nodes)
         
         else:
-
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected -")
 
     def pos_(self):
         if self.currentToken() in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]: # FIRST(POS)
@@ -587,6 +595,7 @@ class Parser:
             return self.nNode("POS", nodes)
 
         else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 1, 2, 3, 4, 5, 6, 7, 8, or 9")
 
     def int_(self):
         if self.currentToken() in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]: # FIRST(INT)
@@ -603,6 +612,7 @@ class Parser:
             return self.nNode("INT", nodes)
 
         else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 1, 2, 3, 4, 5, 6, 7, 8, or 9")
 
     def boolexpr_(self):
         if self.currentToken() in ["b", "T", "F", "^", "v", "!"]: # FIRST(BOOLEXPR)
@@ -622,6 +632,7 @@ class Parser:
             return self.nNode("BOOLEXPR", nodes)
         
         else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected b, T, F, ^, v, !, E, <, or >")
 
     def logic_(self):
         if self.currentToken() == "b": # FIRST(LOGIC)
@@ -637,19 +648,196 @@ class Parser:
             nodes = []
 
             v = self.currentToken()
-
             self.match(v)
             nodes.append(self.tNode(v))
 
             return self.nNode("LOGIC", nodes)
+        
+        elif self.currentToken() in ["^", "v"]: # FIRST(LOGIC)
+            # LOGIC ::= ^ ( BOOLEXPR , BOOLEXPR )
+            # LOGIC ::= v ( BOOLEXPR , BOOLEXPR )
+            nodes = []
 
-    def cmpr_(self): pass
-    def stri_(self): pass
-    def c_(self): pass
-    def comment_(self): pass
-    def input_(self): pass
-    def output_(self): pass
-    def value_(self): pass
+            f = self.currentToken()
+            self.match(f)
+            nodes.append(self.tNode(f))
+
+            self.match("(")
+            nodes.append(self.tNode("("))
+
+            nodes.append(self.boolexpr_())
+
+            self.match(",")
+            nodes.append(self.tNode(","))
+
+            nodes.append(self.boolexpr_())
+
+            self.match(")")
+            nodes.append(self.tNode(")"))
+
+            return self.nNode("LOGIC", nodes)
+
+        elif self.currentToken() == "!": # FIRST(LOGIC)
+            # LOGIC ::= ! ( BOOLEXPR )
+            nodes = []
+
+            self.match("!")
+            nodes.append(self.tNode("!"))
+
+            self.match("(")
+            nodes.append(self.tNode("("))
+
+            nodes.append(self.boolexpr_())
+
+            self.match(")")
+            nodes.append(self.tNode(")"))
+
+            return self.nNode("LOGIC", nodes)
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected b, T, F, ^, v, !, E, <, or >")
+
+    def cmpr_(self):
+        if self.currentToken() in ["E", "<", ">"]: # FIRST(CMPR)
+            # CMPR ::= E ( NUMEXPR , NUMEXPR )
+            # CMPR ::= < ( NUMEXPR , NUMEXPR )
+            # CMPR ::= > ( NUMEXPR , NUMEXPR )
+            nodes = []
+
+            r = self.currentToken()
+            self.match(r)
+            nodes.append(self.tNode(r))
+
+            self.match("(")
+            nodes.append(self.tNode("("))
+
+            nodes.append(self.numexpr_())
+
+            self.match(",")
+            nodes.append(self.tNode(","))
+
+            nodes.append(self.numexpr_())
+
+            self.match(")")
+            nodes.append(self.tNode(")"))
+
+            return self.nNode("CMPR", nodes)
+
+    def stri_(self):
+        if self.currentToken().startswith("\"") and self.currentToken().endswith("\"") and len(self.currentToken()) == 17: # FIRST(STRI)
+            # STRI -> " C C C C C C C C C C C C C C C "
+            nodes = []
+
+            v = self.currentToken()
+
+            for c, i in enumerate(v):
+                if c != 0 and c != len(v)-1:
+
+                    # Check valid ASCII character
+                    if ord(c) < 32 or ord(c) >= 127 or c == "\"":
+                        raise Exception("Syntax error: invalid ASCII character " + self.currentToken() + " in string")
+
+            self.match(v)
+            nodes.append(self.tNode(v))
+
+            return self.nNode("STRI", nodes)
+
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected \"")
+
+    def c_(self):
+        if len(self.currentToken()) == 1 and ord(self.currentToken()) >= 32 and ord(self.currentToken()) < 127: # FIRST(C)
+            # C -> x
+            nodes = []
+
+            v = self.currentToken()
+
+            self.match(v)
+            nodes.append(self.tNode(v))
+
+            return self.nNode("C", nodes)
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected an ASCII character in range [32, 126]")
+
+    def comment_(self):
+        print("HERE: " + self.currentToken())
+        if self.currentToken().startswith("*") and self.currentToken().endswith("*") and len(self.currentToken()) == 17: # FIRST(COMMENT)
+            # COMMENT -> * C C C C C C C C C C C C C C C *
+            nodes = []
+
+            v = self.currentToken()
+
+            for c, i in enumerate(v):
+                if c != 0 and c != len(v)-1:
+
+                    # Check valid ASCII character
+                    if ord(c) < 32 or ord(c) >= 127 or c == "*":
+                        raise Exception("Syntax error: invalid ASCII character " + self.currentToken() + " in comment")
+
+            self.match(v)
+            nodes.append(self.tNode(v))
+
+            return self.nNode("COMMENT", nodes)
+
+        elif self.currentToken() in ["$", ",", "}", ";"]: # FIRST(COMMENT)
+            # COMMENT -> epsilon
+
+            return self.nNode("COMMENT", [])
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected *, $, ,, }, or ;")
+
+    def input_(self):
+        if self.currentToken() == "g": # FIRST(INPUT)
+            # INPUT -> g NUMVAR
+            nodes = []
+
+            self.match("g")
+            nodes.append(self.tNode("g"))
+
+            nodes.append(self.numvar_())
+
+            return self.nNode("INPUT", nodes)
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected g")
+
+
+    def output_(self):
+        if self.currentToken() == "o": # FIRST(OUTPUT)
+            # OUTPUT -> VALUE
+            nodes = []
+
+            nodes.append(self.value_())
+
+            return self.nNode("OUTPUT", nodes)
+        
+        elif self.currentToken() == "r": # FIRST(OUTPUT)
+            # OUTPUT -> TEXT
+            nodes = []
+
+            nodes.append(self.text_())
+
+            return self.nNode("OUTPUT", nodes)
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected o or r")
+
+    def value_(self):
+        if self.currentToken() == "o": # FIRST(VALUE)
+            # VALUE -> o NUMVAR
+            nodes = []
+
+            self.match("o")
+            nodes.append(self.tNode("o"))
+
+            nodes.append(self.numvar_())
+
+            return self.nNode("VALUE", nodes)
+        
+        else:
+            raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected o")
 
     def text_(self):
         if self.currentToken() == "r": # FIRST(TEXT)

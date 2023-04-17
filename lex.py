@@ -22,10 +22,10 @@ def tokenize(text):
             tokens.append("0.00")
             skip_ahead = 3
         elif c == '"' and i+16 < len(text) and text[i+16] == '"': # "string"
-            tokens.append("\"" + text[i+1:i+16])
+            tokens.append("\"" + text[i+1:i+16] + "\"")
             skip_ahead = 16
         elif c == '*' and i+16 < len(text) and text[i+16] == '*': # *comment*
-            tokens.append("*" + text[i+1:i+16])
+            tokens.append("*" + text[i+1:i+16] + "*")
             skip_ahead = 16
         else:
             if c in singles:
