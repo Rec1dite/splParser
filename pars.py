@@ -1,13 +1,27 @@
 import os
+import sys
 from lex import tokenize
 from json import dumps
 from xmltodict import unparse
 
-def main(folder):
+def parseFolder(folder):
     for file in os.listdir(folder):
-        print("=" * 25 + " " + file + " " + "=" * 25)
-        parse(folder + "/" + file)
+        try:
+            print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
+            parse(folder + os.sep + file)
+            print("\033[92m", "PARSING SUCCESS", "\033[0m")
+            print("=" * (50 + len(file)))
+        except Exception as e:
+            print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
+
+def parseFile(file):
+    try:
+        print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
+        parse(file)
+        print("\033[92m", "PARSING SUCCESS", "\033[0m")
         print("=" * (50 + len(file)))
+    except Exception as e:
+        print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
 
 
 # Top-down recursive-descent parser (LL(1))
@@ -20,13 +34,17 @@ def parse(file):
 
     tokens = tokenize(text)
 
-    print(dumps(tokens))
+    # print(dumps(tokens))
 
     parser = Parser(tokens)
-    parser.progr_()
+    ast = parser.woodooMagic()
 
-    # ast = parse()
-    # outputXML(ast, file)
+    # print(dumps(ast, indent=2))
+    # ast = parser.ast
+
+    # outputJSON(ast, file)
+    xmlAST = convertASTForXML(ast)
+    outputXML({"root": xmlAST}, file)
 
 # Smart whitespace remove
 # Ignore whitespace in strings and comments
@@ -36,12 +54,13 @@ def removeWhitespace(text):
     inString = False
     inComment = False
     for c in text:
-        if c == "\"":
+        if c == "\"" and not inComment:
             inString = not inString
-        if c == "*":
+        if c == "*" and not inString:
             inComment = not inComment
 
         if inString or inComment or not str(c).isspace(): # TODO: Fix for ASCII > 32
+            # print(c + " " + str(inString) + " " + str(inComment))
             newText += c
     
     return newText
@@ -51,14 +70,19 @@ class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.index = 0
+        self.counter = 0
         self.ast = None
+
+    def woodooMagic(self):
+        self.ast = self.progr_()
+        return self.ast
     
     def currentToken(self):
         return self.tokens[self.index]
     
     # Test for equality of current token
     def match(self, token):
-        print(">" + token)
+        # print(">" + token)
         if self.index >= len(self.tokens):
             raise Exception("Syntax error: unexpected EOF")
 
@@ -69,18 +93,23 @@ class Parser:
             raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected " + token)
 
     def tNode(self, token):
-        return {
-            "token": token
-        }
+        id = str(self.counter)
+        self.counter += 1
+        return {"parent": "term", "id": id, "children": []}
     
     def nNode(self, name: str, children):
-        id = str(self.index)
-        return {
-            (name + id): {
-                "@id": id,
-                # "@children": ",".join( [k for k in children.keys()] ),
-            }
+        id = str(self.counter)
+        self.counter += 1
+        res = {
+            "parent": name,
+            "id": id,
+            "children": children
         }
+        return res
+
+    # Used to check if the token is a string / comment
+    def checkWrappedToken(self, token, wrapper, length=17):
+        return token.startswith(wrapper) and self.currentToken().endswith(wrapper) and len(self.currentToken()) == length
 
     #=============== GRAMMAR ===============#
     # Each of these returns a tree node
@@ -116,6 +145,7 @@ class Parser:
         elif self.currentToken() in ["$", "}"]: # FOLLOW(PROCDEFS)
             # PROCDEFS -> epsilon
 
+            # return None
             return self.nNode("PROCDEFS", [])
         
         else:
@@ -187,11 +217,11 @@ class Parser:
 
             return self.nNode("MORE", nodes)
         
-        elif self.currentToken() in ["{", ".", ",", ";", "*", ":=", "}", "$", ")"]: # FOLLOW(MORE)
+        elif self.currentToken() in ["{", ".", ",", ";", ":=", "}", "$", ")"] or self.checkWrappedToken(self.currentToken(), "*"): # FOLLOW(MORE)
             # MORE -> epsilon
 
-            # return self.nNode("MORE", [])
-            return None
+            return self.nNode("MORE", [])
+            # return None
         
         else:
             raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected 0-9, {, ., ,, ;, *, :=, }, $ or )")
@@ -227,6 +257,7 @@ class Parser:
         elif self.currentToken() in [",", "}", "$"]: # FOLLOW(SEQ)
             # SEQ -> epsilon
 
+            # return None
             return self.nNode("SEQ", [])
         
         else:
@@ -435,9 +466,10 @@ class Parser:
 
             return self.nNode("ELSE", nodes)
     
-        elif self.currentToken() in [",", ";", "*", "}", "$"]: # FOLLOW(ELSE)
+        elif self.currentToken() in [",", ";", "}", "$"] or self.checkWrappedToken(self.currentToken(), "*"): # FOLLOW(ELSE)
             # ELSE -> epsilon
 
+            # return None
             return self.nNode("ELSE", [])
         
         else:
@@ -724,14 +756,14 @@ class Parser:
             return self.nNode("CMPR", nodes)
 
     def stri_(self):
-        if self.currentToken().startswith("\"") and self.currentToken().endswith("\"") and len(self.currentToken()) == 17: # FIRST(STRI)
+        if self.checkWrappedToken(self.currentToken(), "\""): # FIRST(STRI)
             # STRI -> " C C C C C C C C C C C C C C C "
             nodes = []
 
             v = self.currentToken()
 
-            for c, i in enumerate(v):
-                if c != 0 and c != len(v)-1:
+            for i, c in enumerate(v):
+                if i != 0 and i != len(v)-1:
 
                     # Check valid ASCII character
                     if ord(c) < 32 or ord(c) >= 127 or c == "\"":
@@ -761,15 +793,14 @@ class Parser:
             raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected an ASCII character in range [32, 126]")
 
     def comment_(self):
-        print("HERE: " + self.currentToken())
-        if self.currentToken().startswith("*") and self.currentToken().endswith("*") and len(self.currentToken()) == 17: # FIRST(COMMENT)
+        if self.checkWrappedToken(self.currentToken(), "*"): # FIRST(COMMENT)
             # COMMENT -> * C C C C C C C C C C C C C C C *
             nodes = []
 
             v = self.currentToken()
 
-            for c, i in enumerate(v):
-                if c != 0 and c != len(v)-1:
+            for i, c in enumerate(v):
+                if i != 0 and i != len(v)-1:
 
                     # Check valid ASCII character
                     if ord(c) < 32 or ord(c) >= 127 or c == "*":
@@ -783,6 +814,7 @@ class Parser:
         elif self.currentToken() in ["$", ",", "}", ";"]: # FIRST(COMMENT)
             # COMMENT -> epsilon
 
+            # return None
             return self.nNode("COMMENT", [])
         
         else:
@@ -855,91 +887,99 @@ class Parser:
             raise Exception("Syntax error: unexpected " + self.currentToken() + ", expected r")
 
 
+# Converts the parent-child AST to the correct AST format for XML output
+def convertASTForXML(inputAST):
+    def traverse(node):
+        # if "parent" not in node:
+            # node["parent"] = "root"
+        parent_tag = f"{node['parent']}-{node['id']}"
+        children_ids = ','.join(child['id'] for child in node['children'])
+
+        output_node = {
+            '@id': node['id'],
+            '@children': children_ids
+        }
+
+        for child in node['children']:
+            child_output = traverse(child)
+            child_tag = f"{child['parent']}-{child['id']}"
+            output_node[child_tag] = child_output
+
+        return output_node
+
+    return traverse(inputAST)
+
+def outputJSON(ast, file):
+    if not os.path.exists("outputs"):
+        os.makedirs("outputs")
+
+    outFile = file
+
+    if outFile.startswith("inputs" + os.sep):
+        outFile = "outputs" + os.sep + outFile[7:]
+
+
+    dotIndex = outFile.rfind(".")
+
+    if dotIndex != -1:
+        outFile = outFile[:dotIndex] + ".json"
+    else:
+        outFile += ".json"
+
+    json = dumps(ast, indent=2)
+    open(outFile, "w").write(json)
 
 def outputXML(ast, file):
-    outFile = file.replace("inputs", "outputs")
-    outFile = outFile[:-4] + ".xml"
+    if not os.path.exists("outputs"):
+        os.makedirs("outputs")
+
+    outFile = file
+
+    # If file is in the inputs folder, move it to the outputs folder
+    # All other output files will be left in place
+    if outFile.startswith("inputs" + os.sep):
+        outFile = "outputs" + os.sep + outFile[7:]
+
+    dotIndex = outFile.rfind(".")
+
+    if dotIndex != -1:
+        outFile = outFile[:dotIndex] + ".xml"
+    else:
+        outFile += ".xml"
 
     xml = unparse(ast, pretty=True)
     open(outFile, "w").write(xml)
 
-main("inputs")
+def printHelp():
+    print("""
+    Usage: python3 pars.py [OPTION] [FILE]
 
+    OPTIONS:
+        -h      Print this help message
+        -f      Parse a single file
+    
+    If no option is specified, the program will try to parse all files in the "inputs" folder.
+    Input from the inputs/ folder will have their outputs placed in the "outputs" folder.
 
-# PROGR ::= ALGO PROCDEFS
-# PROCDEFS ::= , PROC PROCDEFS
-# PROCDEFS ::= ''
-# PROC ::= p DIGITS { PROGR }
-# DIGITS ::= D MORE
-# D ::= 0
-# D ::= 1
-# D ::= 2
-# D ::= 3
-# D ::= 4
-# D ::= 5
-# D ::= 6
-# D ::= 7
-# D ::= 8
-# D ::= 9
-# MORE ::= DIGITS
-# MORE ::= ''
-# ALGO ::= INSTR COMMENT SEQ
-# SEQ ::= ; ALGO
-# SEQ ::= ''
-# INSTR ::= INPUT
-# INSTR ::= OUTPUT
-# INSTR ::= ASSIGN
-# INSTR ::= CALL
-# INSTR ::= LOOP
-# INSTR ::= BRANCH
-# INSTR ::= h
-# CALL ::= c p DIGITS
-# ASSIGN ::= NUMVAR := NUMEXPR 
-# ASSIGN ::= BOOLVAR := BOOLEXPR
-# ASSIGN ::= STRINGV := STRI
-# LOOP ::= w ( BOOLEXPR ) { ALGO } 
-# BRANCH ::= i ( BOOLEXPR ) t { ALGO } ELSE
-# ELSE ::= e { ALGO }
-# ELSE ::= ''
-# NUMVAR ::= n DIGITS
-# BOOLVAR ::= b DIGITS
-# STRINGV ::= s DIGITS
-# NUMEXPR ::= a ( NUMEXPR , NUMEXPR )
-# NUMEXPR ::= m ( NUMEXPR , NUMEXPR )
-# NUMEXPR ::= d ( NUMEXPR , NUMEXPR )
-# NUMEXPR ::= NUMVAR
-# NUMEXPR ::= DECNUM
-# DECNUM ::= 0.00
-# DECNUM ::= NEG
-# DECNUM ::= POS
-# NEG ::= ‒ POS
-# POS ::= INT . D D
-# INT ::= 1 MORE
-# INT ::= 2 MORE
-# INT ::= 3 MORE
-# INT ::= 4 MORE
-# INT ::= 5 MORE
-# INT ::= 6 MORE
-# INT ::= 7 MORE
-# INT ::= 8 MORE
-# INT ::= 9 MORE
-# BOOLEXPR ::= LOGIC
-# BOOLEXPR ::= CMPR
-# LOGIC ::= BOOLVAR
-# LOGIC ::= T
-# LOGIC ::= F
-# LOGIC ::= ^ ( BOOLEXPR , BOOLEXPR )
-# LOGIC ::= v ( BOOLEXPR , BOOLEXPR )
-# LOGIC ::= ! ( BOOLEXPR )
-# CMPR ::= E ( NUMEXPR , NUMEXPR )
-# CMPR ::= < ( NUMEXPR , NUMEXPR )
-# CMPR ::= > ( NUMEXPR , NUMEXPR )
-# STRI ::= " C C C C C C C C C C C C C C C "
-# C ::= as
-# COMMENT ::= * C C C C C C C C C C C C C C C *
-# COMMENT ::= ''
-# INPUT ::= g NUMVAR
-# OUTPUT ::= TEXT
-# OUTPUT ::= VALUE
-# VALUE ::= o NUMVAR
-# TEXT ::= r STRINGV
+    Explicitly specified output files will be placed in the same folder as the input file.
+    """)
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        match sys.argv[1]:
+            case "-f":
+                if len(sys.argv) > 2:
+                    parseFile(sys.argv[2])
+                else:
+                    print("\033[91mNo file specified!\033[0m")
+                    printHelp()
+
+            case "-h":
+                printHelp()
+            
+            case _:
+                print("\033[91mInvalid command option!\033[0m")
+                printHelp()
+
+    else:
+        parseFolder("inputs")

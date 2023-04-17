@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root id="220" children="218,219">
+	<ALGO-218 id="218" children="23,24,217">
+		<INSTR-23 id="23" children="22">
+			<ASSIGN-22 id="22" children="5,6,21">
+				<NUMVAR-5 id="5" children="0,4">
+					<term-0 id="0" children=""></term-0>
+					<DIGITS-4 id="4" children="2,3">
+						<D-2 id="2" children="1">
+							<term-1 id="1" children=""></term-1>
+						</D-2>
+						<MORE-3 id="3" children=""></MORE-3>
+					</DIGITS-4>
+				</NUMVAR-5>
+				<term-6 id="6" children=""></term-6>
+				<NUMEXPR-21 id="21" children="20">
+					<DECNUM-20 id="20" children="19">
+						<POS-19 id="19" children="13,14,16,18">
+							<INT-13 id="13" children="7,12">
+								<term-7 id="7" children=""></term-7>
+								<MORE-12 id="12" children="11">
+									<DIGITS-11 id="11" children="9,10">
+										<D-9 id="9" children="8">
+											<term-8 id="8" children=""></term-8>
+										</D-9>
+										<MORE-10 id="10" children=""></MORE-10>
+									</DIGITS-11>
+								</MORE-12>
+							</INT-13>
+							<term-14 id="14" children=""></term-14>
+							<D-16 id="16" children="15">
+								<term-15 id="15" children=""></term-15>
+							</D-16>
+							<D-18 id="18" children="17">
+								<term-17 id="17" children=""></term-17>
+							</D-18>
+						</POS-19>
+					</DECNUM-20>
+				</NUMEXPR-21>
+			</ASSIGN-22>
+		</INSTR-23>
+		<COMMENT-24 id="24" children=""></COMMENT-24>
+		<SEQ-217 id="217" children="25,216">
+			<term-25 id="25" children=""></term-25>
+			<ALGO-216 id="216" children="34,35,215">
+				<INSTR-34 id="34" children="33">
+					<INPUT-33 id="33" children="26,32">
+						<term-26 id="26" children=""></term-26>
+						<NUMVAR-32 id="32" children="27,31">
+							<term-27 id="27" children=""></term-27>
+							<DIGITS-31 id="31" children="29,30">
+								<D-29 id="29" children="28">
+									<term-28 id="28" children=""></term-28>
+								</D-29>
+								<MORE-30 id="30" children=""></MORE-30>
+							</DIGITS-31>
+						</NUMVAR-32>
+					</INPUT-33>
+				</INSTR-34>
+				<COMMENT-35 id="35" children=""></COMMENT-35>
+				<SEQ-215 id="215" children="36,214">
+					<term-36 id="36" children=""></term-36>
+					<ALGO-214 id="214" children="71,72,213">
+						<INSTR-71 id="71" children="70">
+							<ASSIGN-70 id="70" children="66,67,69">
+								<STRINGV-66 id="66" children="37,65">
+									<term-37 id="37" children=""></term-37>
+									<DIGITS-65 id="65" children="39,64">
+										<D-39 id="39" children="38">
+											<term-38 id="38" children=""></term-38>
+										</D-39>
+										<MORE-64 id="64" children="63">
+											<DIGITS-63 id="63" children="41,62">
+												<D-41 id="41" children="40">
+													<term-40 id="40" children=""></term-40>
+												</D-41>
+												<MORE-62 id="62" children="61">
+													<DIGITS-61 id="61" children="43,60">
+														<D-43 id="43" children="42">
+															<term-42 id="42" children=""></term-42>
+														</D-43>
+														<MORE-60 id="60" children="59">
+															<DIGITS-59 id="59" children="45,58">
+																<D-45 id="45" children="44">
+																	<term-44 id="44" children=""></term-44>
+																</D-45>
+																<MORE-58 id="58" children="57">
+																	<DIGITS-57 id="57" children="47,56">
+																		<D-47 id="47" children="46">
+																			<term-46 id="46" children=""></term-46>
+																		</D-47>
+																		<MORE-56 id="56" children="55">
+																			<DIGITS-55 id="55" children="49,54">
+																				<D-49 id="49" children="48">
+																					<term-48 id="48" children=""></term-48>
+																				</D-49>
+																				<MORE-54 id="54" children="53">
+																					<DIGITS-53 id="53" children="51,52">
+																						<D-51 id="51" children="50">
+																							<term-50 id="50" children=""></term-50>
+																						</D-51>
+																						<MORE-52 id="52" children=""></MORE-52>
+																					</DIGITS-53>
+																				</MORE-54>
+																			</DIGITS-55>
+																		</MORE-56>
+																	</DIGITS-57>
+																</MORE-58>
+															</DIGITS-59>
+														</MORE-60>
+													</DIGITS-61>
+												</MORE-62>
+											</DIGITS-63>
+										</MORE-64>
+									</DIGITS-65>
+								</STRINGV-66>
+								<term-67 id="67" children=""></term-67>
+								<STRI-69 id="69" children="68">
+									<term-68 id="68" children=""></term-68>
+								</STRI-69>
+							</ASSIGN-70>
+						</INSTR-71>
+						<COMMENT-72 id="72" children=""></COMMENT-72>
+						<SEQ-213 id="213" children="73,212">
+							<term-73 id="73" children=""></term-73>
+							<ALGO-212 id="212" children="84,85,211">
+								<INSTR-84 id="84" children="83">
+									<ASSIGN-83 id="83" children="79,80,82">
+										<STRINGV-79 id="79" children="74,78">
+											<term-74 id="74" children=""></term-74>
+											<DIGITS-78 id="78" children="76,77">
+												<D-76 id="76" children="75">
+													<term-75 id="75" children=""></term-75>
+												</D-76>
+												<MORE-77 id="77" children=""></MORE-77>
+											</DIGITS-78>
+										</STRINGV-79>
+										<term-80 id="80" children=""></term-80>
+										<STRI-82 id="82" children="81">
+											<term-81 id="81" children=""></term-81>
+										</STRI-82>
+									</ASSIGN-83>
+								</INSTR-84>
+								<COMMENT-85 id="85" children=""></COMMENT-85>
+								<SEQ-211 id="211" children="86,210">
+									<term-86 id="86" children=""></term-86>
+									<ALGO-210 id="210" children="97,98,209">
+										<INSTR-97 id="97" children="96">
+											<ASSIGN-96 id="96" children="92,93,95">
+												<STRINGV-92 id="92" children="87,91">
+													<term-87 id="87" children=""></term-87>
+													<DIGITS-91 id="91" children="89,90">
+														<D-89 id="89" children="88">
+															<term-88 id="88" children=""></term-88>
+														</D-89>
+														<MORE-90 id="90" children=""></MORE-90>
+													</DIGITS-91>
+												</STRINGV-92>
+												<term-93 id="93" children=""></term-93>
+												<STRI-95 id="95" children="94">
+													<term-94 id="94" children=""></term-94>
+												</STRI-95>
+											</ASSIGN-96>
+										</INSTR-97>
+										<COMMENT-98 id="98" children=""></COMMENT-98>
+										<SEQ-209 id="209" children="99,208">
+											<term-99 id="99" children=""></term-99>
+											<ALGO-208 id="208" children="205,206,207">
+												<INSTR-205 id="205" children="204">
+													<BRANCH-204 id="204" children="100,101,121,122,123,124,137,138,203">
+														<term-100 id="100" children=""></term-100>
+														<term-101 id="101" children=""></term-101>
+														<BOOLEXPR-121 id="121" children="120">
+															<CMPR-120 id="120" children="102,103,110,111,118,119">
+																<term-102 id="102" children=""></term-102>
+																<term-103 id="103" children=""></term-103>
+																<NUMEXPR-110 id="110" children="109">
+																	<NUMVAR-109 id="109" children="104,108">
+																		<term-104 id="104" children=""></term-104>
+																		<DIGITS-108 id="108" children="106,107">
+																			<D-106 id="106" children="105">
+																				<term-105 id="105" children=""></term-105>
+																			</D-106>
+																			<MORE-107 id="107" children=""></MORE-107>
+																		</DIGITS-108>
+																	</NUMVAR-109>
+																</NUMEXPR-110>
+																<term-111 id="111" children=""></term-111>
+																<NUMEXPR-118 id="118" children="117">
+																	<NUMVAR-117 id="117" children="112,116">
+																		<term-112 id="112" children=""></term-112>
+																		<DIGITS-116 id="116" children="114,115">
+																			<D-114 id="114" children="113">
+																				<term-113 id="113" children=""></term-113>
+																			</D-114>
+																			<MORE-115 id="115" children=""></MORE-115>
+																		</DIGITS-116>
+																	</NUMVAR-117>
+																</NUMEXPR-118>
+																<term-119 id="119" children=""></term-119>
+															</CMPR-120>
+														</BOOLEXPR-121>
+														<term-122 id="122" children=""></term-122>
+														<term-123 id="123" children=""></term-123>
+														<term-124 id="124" children=""></term-124>
+														<ALGO-137 id="137" children="134,135,136">
+															<INSTR-134 id="134" children="133">
+																<OUTPUT-133 id="133" children="132">
+																	<TEXT-132 id="132" children="125,131">
+																		<term-125 id="125" children=""></term-125>
+																		<STRINGV-131 id="131" children="126,130">
+																			<term-126 id="126" children=""></term-126>
+																			<DIGITS-130 id="130" children="128,129">
+																				<D-128 id="128" children="127">
+																					<term-127 id="127" children=""></term-127>
+																				</D-128>
+																				<MORE-129 id="129" children=""></MORE-129>
+																			</DIGITS-130>
+																		</STRINGV-131>
+																	</TEXT-132>
+																</OUTPUT-133>
+															</INSTR-134>
+															<COMMENT-135 id="135" children=""></COMMENT-135>
+															<SEQ-136 id="136" children=""></SEQ-136>
+														</ALGO-137>
+														<term-138 id="138" children=""></term-138>
+														<ELSE-203 id="203" children="139,140,201,202">
+															<term-139 id="139" children=""></term-139>
+															<term-140 id="140" children=""></term-140>
+															<ALGO-201 id="201" children="198,199,200">
+																<INSTR-198 id="198" children="197">
+																	<BRANCH-197 id="197" children="141,142,162,163,164,165,178,179,196">
+																		<term-141 id="141" children=""></term-141>
+																		<term-142 id="142" children=""></term-142>
+																		<BOOLEXPR-162 id="162" children="161">
+																			<CMPR-161 id="161" children="143,144,151,152,159,160">
+																				<term-143 id="143" children=""></term-143>
+																				<term-144 id="144" children=""></term-144>
+																				<NUMEXPR-151 id="151" children="150">
+																					<NUMVAR-150 id="150" children="145,149">
+																						<term-145 id="145" children=""></term-145>
+																						<DIGITS-149 id="149" children="147,148">
+																							<D-147 id="147" children="146">
+																								<term-146 id="146" children=""></term-146>
+																							</D-147>
+																							<MORE-148 id="148" children=""></MORE-148>
+																						</DIGITS-149>
+																					</NUMVAR-150>
+																				</NUMEXPR-151>
+																				<term-152 id="152" children=""></term-152>
+																				<NUMEXPR-159 id="159" children="158">
+																					<NUMVAR-158 id="158" children="153,157">
+																						<term-153 id="153" children=""></term-153>
+																						<DIGITS-157 id="157" children="155,156">
+																							<D-155 id="155" children="154">
+																								<term-154 id="154" children=""></term-154>
+																							</D-155>
+																							<MORE-156 id="156" children=""></MORE-156>
+																						</DIGITS-157>
+																					</NUMVAR-158>
+																				</NUMEXPR-159>
+																				<term-160 id="160" children=""></term-160>
+																			</CMPR-161>
+																		</BOOLEXPR-162>
+																		<term-163 id="163" children=""></term-163>
+																		<term-164 id="164" children=""></term-164>
+																		<term-165 id="165" children=""></term-165>
+																		<ALGO-178 id="178" children="175,176,177">
+																			<INSTR-175 id="175" children="174">
+																				<OUTPUT-174 id="174" children="173">
+																					<TEXT-173 id="173" children="166,172">
+																						<term-166 id="166" children=""></term-166>
+																						<STRINGV-172 id="172" children="167,171">
+																							<term-167 id="167" children=""></term-167>
+																							<DIGITS-171 id="171" children="169,170">
+																								<D-169 id="169" children="168">
+																									<term-168 id="168" children=""></term-168>
+																								</D-169>
+																								<MORE-170 id="170" children=""></MORE-170>
+																							</DIGITS-171>
+																						</STRINGV-172>
+																					</TEXT-173>
+																				</OUTPUT-174>
+																			</INSTR-175>
+																			<COMMENT-176 id="176" children=""></COMMENT-176>
+																			<SEQ-177 id="177" children=""></SEQ-177>
+																		</ALGO-178>
+																		<term-179 id="179" children=""></term-179>
+																		<ELSE-196 id="196" children="180,181,194,195">
+																			<term-180 id="180" children=""></term-180>
+																			<term-181 id="181" children=""></term-181>
+																			<ALGO-194 id="194" children="191,192,193">
+																				<INSTR-191 id="191" children="190">
+																					<OUTPUT-190 id="190" children="189">
+																						<TEXT-189 id="189" children="182,188">
+																							<term-182 id="182" children=""></term-182>
+																							<STRINGV-188 id="188" children="183,187">
+																								<term-183 id="183" children=""></term-183>
+																								<DIGITS-187 id="187" children="185,186">
+																									<D-185 id="185" children="184">
+																										<term-184 id="184" children=""></term-184>
+																									</D-185>
+																									<MORE-186 id="186" children=""></MORE-186>
+																								</DIGITS-187>
+																							</STRINGV-188>
+																						</TEXT-189>
+																					</OUTPUT-190>
+																				</INSTR-191>
+																				<COMMENT-192 id="192" children=""></COMMENT-192>
+																				<SEQ-193 id="193" children=""></SEQ-193>
+																			</ALGO-194>
+																			<term-195 id="195" children=""></term-195>
+																		</ELSE-196>
+																	</BRANCH-197>
+																</INSTR-198>
+																<COMMENT-199 id="199" children=""></COMMENT-199>
+																<SEQ-200 id="200" children=""></SEQ-200>
+															</ALGO-201>
+															<term-202 id="202" children=""></term-202>
+														</ELSE-203>
+													</BRANCH-204>
+												</INSTR-205>
+												<COMMENT-206 id="206" children=""></COMMENT-206>
+												<SEQ-207 id="207" children=""></SEQ-207>
+											</ALGO-208>
+										</SEQ-209>
+									</ALGO-210>
+								</SEQ-211>
+							</ALGO-212>
+						</SEQ-213>
+					</ALGO-214>
+				</SEQ-215>
+			</ALGO-216>
+		</SEQ-217>
+	</ALGO-218>
+	<PROCDEFS-219 id="219" children=""></PROCDEFS-219>
+</root>
