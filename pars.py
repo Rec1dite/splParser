@@ -1,3 +1,4 @@
+# pylint: disable-all
 import os
 import sys
 from lex import tokenize
@@ -6,13 +7,15 @@ from xmltodict import unparse
 import re
 
 def parseFolder(folder):
-    for file in os.listdir(folder):
-        try:
-            print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
-            parse(folder + os.sep + file)
-            print("=" * (50 + len(file)))
-        except Exception as e:
-            print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
+    files = sorted(os.listdir(folder))
+    for file in files:
+        if file.endswith(".txt") or file.endswith(".spl"):
+            try:
+                print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
+                parse(folder + os.sep + file)
+                print("=" * (50 + len(file)))
+            except Exception as e:
+                print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
 
 def parseFile(file):
     try:
@@ -39,13 +42,31 @@ def parse(file):
     ast = parser.woodooMagic()
 
     # print(dumps(ast, indent=2))
-    # ast = parser.ast
+
 
     print("\033[92m", "PARSING SUCCESS", "\033[0m")
 
-    # outputJSON(ast, file)
-    xmlAST = convertASTForXML(ast)
-    outputXML({"PROGR": xmlAST}, file)
+    prune(ast)
+
+    outputJSON(ast, file)
+    # xmlAST = convertASTForXML(ast)
+    # outputXML({"PROGR": xmlAST}, file)
+
+
+def prune(node):
+    for child in node["children"]:
+        if child["name"] in ["DIGITS", "DECNUM"]:
+            val = pruneDigits(child)
+            child["children"] = []
+            child["value"] = val
+        else:
+            prune(child)
+
+def pruneDigits(node):
+    res = node["value"]
+    for child in node["children"]:
+        res += pruneDigits(child)
+    return res
 
 # Smart whitespace remove
 # Ignore whitespace in strings and comments
@@ -96,13 +117,13 @@ class Parser:
     def tNode(self, token):
         id = str(self.counter)
         self.counter += 1
-        return {"parent": "term", "id": id, "children": [], "value": token}
+        return {"name": "term", "id": id, "children": [], "value": token}
     
     def nNode(self, name: str, children):
         id = str(self.counter)
         self.counter += 1
         res = {
-            "parent": name,
+            "name": name,
             "id": id,
             "children": children,
             "value": ""
@@ -890,9 +911,9 @@ class Parser:
 # Converts the parent-child AST to the correct AST format for XML output
 def convertASTForXML(inputAST):
     def traverse(node):
-        # if "parent" not in node:
-            # node["parent"] = "root"
-        parent_tag = f"{node['parent']}-{node['id']}"
+        # if "name" not in node:
+            # node["name"] = "root"
+        name_tag = f"{node['name']}-{node['id']}"
         children_ids = ','.join(child['id'] for child in node['children'])
 
         output_node = {
@@ -903,7 +924,7 @@ def convertASTForXML(inputAST):
 
         for child in node['children']:
             child_output = traverse(child)
-            child_tag = f"{child['parent']}-{child['id']}"
+            child_tag = f"{child['name']}-{child['id']}"
             output_node[child_tag] = child_output
 
         return output_node
