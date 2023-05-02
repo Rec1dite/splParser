@@ -26,7 +26,7 @@ def tokenize(text):
             else:
                 print("\033[91mSyntax error: unexpected character: " + c + "({})".format(ord(c)) + "\033[0m")
                 print(text[:i] + "\033[91m" + c + "\033[0m" + text[i+1:])
-                exit()
+                return ["$"]
         
     tokens.append("$") # eof
     return tokens

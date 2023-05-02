@@ -2,6 +2,7 @@
 import os
 import sys
 from lex import tokenize
+from scop import scope
 from json import dumps
 from xmltodict import unparse
 import re
@@ -36,31 +37,66 @@ def parse(file):
 
     tokens = tokenize(text)
 
-    # print(dumps(tokens))
-
     parser = Parser(tokens)
     ast = parser.woodooMagic()
 
-    # print(dumps(ast, indent=2))
-
-
     print("\033[92m", "PARSING SUCCESS", "\033[0m")
-
     prune(ast)
 
-    outputJSON(ast, file)
+    tbl = scope(ast)
+    # outputJSON(tbl, file)
+
+    outputJSON(tbl, file)
     # xmlAST = convertASTForXML(ast)
     # outputXML({"PROGR": xmlAST}, file)
 
 
 def prune(node):
+    pruneDigitsDecnum(node)
+    pruneProc(node)
+    pruneCall(node)
+
+def pruneDigitsDecnum(node):
     for child in node["children"]:
         if child["name"] in ["DIGITS", "DECNUM"]:
             val = pruneDigits(child)
             child["children"] = []
             child["value"] = val
+
         else:
-            prune(child)
+            pruneDigitsDecnum(child)
+
+def pruneProc(node):
+    for child in node["children"]:
+        # print(child["name"], child["id"])
+        if child["name"] == "PROC":
+            RED = "\033[91m"
+            RESET = "\033[0m"
+        #     # Extract proc name
+            child["value"] = "p" + getNodePart(child, "DIGITS")["value"]
+            # print(RED, child["value"], child["id"], RESET)
+# 
+        #     # Remove proc name and curly braces
+        #     child["children"] = child["children"][3:-1]
+
+        # Procs have subprocs
+        pruneProc(child)
+
+def pruneCall(node):
+    for child in node["children"]:
+        if child["name"] == "CALL":
+            # Extract proc name
+            child["value"] = "p" + getNodePart(child, "DIGITS")["value"]
+            child["children"] = []
+
+        else:
+            pruneCall(child)
+
+def getNodePart(node, part):
+    for child in node["children"]:
+        if child["name"] == part:
+            return child
+    return None
 
 def pruneDigits(node):
     res = node["value"]

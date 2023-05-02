@@ -51,7 +51,7 @@ STRINGV     -> s DIGITS //s stands for stringish    |
 NUMEXPR     -> a(NUMEXPR,NUMEXPR)   //addition
 NUMEXPR     -> m(NUMEXPR,NUMEXPR)   //multiplication
 NUMEXPR     -> d(NUMEXPR,NUMEXPR)   //division
-NUMEXPR     -> NUMVARA              // value of a variable
+NUMEXPR     -> NUMVAR               // value of a variable
 NUMEXPR     -> DECNUM //decimal number with at most 2 digits after the decimal point
 
 //===== DECIMAL NUMBERS =====//
