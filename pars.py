@@ -3,6 +3,7 @@ import os
 import sys
 from lex import tokenize
 from scop import scope
+from prin import outputScopeTableHTML
 from json import dumps
 from xmltodict import unparse
 import re
@@ -44,9 +45,9 @@ def parse(file):
     prune(ast)
 
     tbl = scope(ast)
-    # outputJSON(tbl, file)
+    outputScopeTableHTML(tbl, file)
 
-    outputJSON(tbl, file)
+    # outputJSON(tbl, file)
     # xmlAST = convertASTForXML(ast)
     # outputXML({"PROGR": xmlAST}, file)
 

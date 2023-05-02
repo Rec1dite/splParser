@@ -15,18 +15,24 @@ def scope(ast):
 
 #========== SCOPE TABLE ==========#
 
-scopes = ["main"]
+scopes = {
+        "global": 0,
+        "main": 1,
+    }
 
 def getScopeTable(procTree, parentScope="main"):
     res = {}
 
     for name, details in procTree.items():
+        scopes[name] = scopes[parentScope] + 1
+
         if isinstance(details, dict):
             current_scope = parentScope
 
             res[details["id"]] = {
                 "name": name,
-                "scope": current_scope
+                "scope": current_scope,
+                "scopeId": scopes[current_scope]
             }
 
             # Remove 'calls' and 'id' keys for recursive call
