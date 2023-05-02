@@ -54,8 +54,21 @@ def outputScopeTableHTML(tbl, file):
             </tr>
             $rows
         </table>
+        <br />
+        <table>
+            <tr>
+                <th>Warnings</th>
+            </tr>
+            $warnRows
+        </table>
     </body>
     </html>
+    """)
+
+    warnRow_template = string.Template("""
+    <tr>
+        <td>$warn</td>
+    </tr>
     """)
 
     row_template = string.Template("""
@@ -73,8 +86,14 @@ def outputScopeTableHTML(tbl, file):
         row = row_template.substitute(id=id, name=details['name'], scope=details['scope'], scopeId=details['scopeId'])
         rows.append(row)
 
+    # Generate warning rows
+    warnRows = []
+    for id, details in tbl.items():
+        # row = warnRow_template.substitute(warn=details['warnings'])
+        rows.append(row)
+
     # Generate HTML
-    html = html_template.substitute(rows=''.join(rows))
+    html = html_template.substitute(rows=''.join(rows), warnRows=''.join(warnRows))
 
     #=========== WRITE ===========#
     open(outFile, "w").write(html)

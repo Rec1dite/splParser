@@ -48,6 +48,7 @@ def parse(file):
     outputScopeTableHTML(tbl, file)
 
     # outputJSON(tbl, file)
+
     # xmlAST = convertASTForXML(ast)
     # outputXML({"PROGR": xmlAST}, file)
 
