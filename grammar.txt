@@ -35,7 +35,7 @@ ASSIGN      -> BOOLVAR := BOOLEXPR
 ASSIGN      -> STRINGV := STRI
 
 //===== CONTROL FLOW =====//
-LOOP        -> w(BOOLEXPR)t{ALGO}ELSE //w stands for while
+LOOP        -> w(BOOLEXPR)t{ALGO} //w stands for while
 
 BRANCH      -> i(BOOLEXPR)t{ALGO}ELSE //i stands for if
 

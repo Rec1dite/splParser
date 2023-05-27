@@ -265,11 +265,42 @@ def getNodePart(node, part):
 
 #========== VARIABLES ==========#
 
+# res = [
+#   {
+#       "name": "x",
+#       "type": "num"
+#   },
+#   ...
+# ]
+def getTypedVars(ast):
+    vars = traverseForVars(ast)
+    res = []
+
+    for v in vars:
+        name = v["value"]
+        typ = "num" if v["name"]=="NUMVAR" else "bool" if v["name"]=="BOOLVAR" else "string"
+
+        # Skip if already in res
+        found = False
+        for r in res:
+            if r["name"] == name:
+                found = True
+                break
+
+        if not found:
+            res.append({
+                "name": name,
+                "type": typ
+            })
+    return res
+
+
 def addVariables(tbl, ast):
     vars = traverseForVars(ast)
+
     for v in vars:
         # print(">  ", v)
-        name = extractVarName(v)
+        name = v["value"]
 
         # Check not already in table
         found = False
@@ -284,16 +315,6 @@ def addVariables(tbl, ast):
                 "scopeId": "0", # global
                 "scope": "global"
             }
-
-def extractVarName(node):
-    name = ""
-
-    for child in node["children"]:
-        if child["name"] == "term":
-            name = child["value"] + name
-        elif child["name"] == "DIGITS":
-            name += child["value"]
-    return name
 
 def traverseForVars(node):
     res = []

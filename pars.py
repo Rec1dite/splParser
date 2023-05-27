@@ -4,6 +4,7 @@ import sys
 from lex import tokenize
 from scop import scope
 from prin import outputScopeTableHTML
+from transl import translate
 from json import dumps
 from xmltodict import unparse
 import re
@@ -14,19 +15,19 @@ def parseFolder(folder):
     files = sorted(os.listdir(folder))
     for file in files:
         if file.endswith(".txt") or file.endswith(".spl"):
-            try:
+            # try:
                 print("\n\n\033[94m" + "===== " + file + " " + "=" * (50-len(file)) + "\033[0m")
                 parse(folder + os.sep + file)
-            except Exception as e:
-                print("\033[91m" + "PARSING ERROR\n> ", e, "\033[0m")
+            # except Exception as e:
+                # print("\033[91m" + "PARSING ERROR\n> ", e, "\033[0m")
 
 def parseFile(file):
-    try:
+    # try:
         print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
         parse(file)
         print("=" * (50 + len(file)))
-    except Exception as e:
-        print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
+    # except Exception as e:
+        # print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
 
 
 # Top-down recursive-descent parser (LL(1))
@@ -39,24 +40,33 @@ def parse(file):
 
     tokens = tokenize(text)
 
+    #===== PARSE =====#
     parser = Parser(tokens)
     ast = parser.woodooMagic()
 
     print("\033[92m", "PARSING SUCCESS", "\033[0m")
     prune(ast)
 
-    tbl = scope(ast)
-    outputScopeTableHTML(tbl, file)
-
-    # outputJSON(tbl, file)
+    outputJSON(ast, file)
 
     # xmlAST = convertASTForXML(ast)
     # outputXML({"PROGR": xmlAST}, file)
+
+    #===== DEDUCE SCOPE TABLE =====#
+    # tbl = scope(ast)
+    # outputScopeTableHTML(tbl, file)
+
+    # outputJSON(tbl, file)
+
+    #===== TRANSLATE TO BASIC =====#
+    basic = translate(ast)
+    outputBasic(basic, file)
 
 
 def prune(node):
     pruneDigitsDecnum(node)
     pruneProc(node)
+    pruneVars(node)
     pruneCall(node)
 
 def pruneDigitsDecnum(node):
@@ -71,19 +81,25 @@ def pruneDigitsDecnum(node):
 
 def pruneProc(node):
     for child in node["children"]:
-        # print(child["name"], child["id"])
         if child["name"] == "PROC":
-            RED = "\033[91m"
-            RESET = "\033[0m"
-        #     # Extract proc name
+            # Extract proc name
             child["value"] = "p" + getNodePart(child, "DIGITS")["value"]
-            # print(RED, child["value"], child["id"], RESET)
-# 
-        #     # Remove proc name and curly braces
-        #     child["children"] = child["children"][3:-1]
+            # Remove proc name
+            child["children"] = child["children"][2:]
 
         # Procs have subprocs
         pruneProc(child)
+
+def pruneVars(node):
+    for child in node["children"]:
+        if child["name"] in ["NUMVAR", "BOOLVAR", "STRINGV"]:
+            # Extract var name
+            child["value"] = child["children"][0]["value"] + getNodePart(child, "DIGITS")["value"]
+            # Remove var name tokens
+            child["children"] = []
+
+        # Procs have subprocs
+        pruneVars(child)
 
 def pruneCall(node):
     for child in node["children"]:
@@ -969,6 +985,24 @@ def convertASTForXML(inputAST):
         return output_node
 
     return traverse(inputAST)
+
+def outputBasic(basic, file):
+    if not os.path.exists("outputs"):
+        os.makedirs("outputs")
+
+    outFile = file
+
+    if outFile.startswith("inputs" + os.sep):
+        outFile = "outputs" + os.sep + outFile[7:]
+
+    dotIndex = outFile.rfind(".")
+
+    if dotIndex != -1:
+        outFile = outFile[:dotIndex] + ".b"
+    else:
+        outFile += ".json"
+
+    open(outFile, "w").write(basic)
 
 def outputJSON(ast, file):
     if not os.path.exists("outputs"):
