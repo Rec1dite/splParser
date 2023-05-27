@@ -9,15 +9,16 @@ from xmltodict import unparse
 import re
 
 def parseFolder(folder):
+    print("\n\033[93m" + "_____ PARSING FOLDER [" + folder + "] " + "_"*(33-len(folder)) + "\033[0m")
+
     files = sorted(os.listdir(folder))
     for file in files:
         if file.endswith(".txt") or file.endswith(".spl"):
             try:
-                print("=" * 25 + " \033[94m" + file + "\033[0m " + "=" * 25)
+                print("\n\n\033[94m" + "===== " + file + " " + "=" * (50-len(file)) + "\033[0m")
                 parse(folder + os.sep + file)
-                print("=" * (50 + len(file)))
             except Exception as e:
-                print("\033[91m", "PARSING ERROR\n> ", e, "\033[0m")
+                print("\033[91m" + "PARSING ERROR\n> ", e, "\033[0m")
 
 def parseFile(file):
     try:

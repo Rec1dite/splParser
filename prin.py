@@ -57,12 +57,25 @@ def outputScopeTableHTML(tbl, file):
         <br />
         <table>
             <tr>
+                <th>Errors</th>
+            </tr>
+            $errRows
+        </table>
+        <br />
+        <table>
+            <tr>
                 <th>Warnings</th>
             </tr>
             $warnRows
         </table>
     </body>
     </html>
+    """)
+
+    errRow_template = string.Template("""
+    <tr>
+        <td>$err</td>
+    </tr>
     """)
 
     warnRow_template = string.Template("""
@@ -74,7 +87,7 @@ def outputScopeTableHTML(tbl, file):
     row_template = string.Template("""
     <tr>
         <td>$id</td>
-        <td>$name</td>
+        <td><b>$name</b></td>
         <td>$scope</td>
         <td>$scopeId</td>
     </tr>
@@ -83,17 +96,35 @@ def outputScopeTableHTML(tbl, file):
     # Generate table rows
     rows = []
     for id, details in tbl.items():
+        # print("HTML ", id, "\t", details)
+        if id == "stats":
+            continue
+
         row = row_template.substitute(id=id, name=details['name'], scope=details['scope'], scopeId=details['scopeId'])
         rows.append(row)
 
     # Generate warning rows
     warnRows = []
-    for id, details in tbl.items():
-        # row = warnRow_template.substitute(warn=details['warnings'])
-        rows.append(row)
+    errRows = []
+    if "stats" in tbl:
+        if "errors" in tbl["stats"]:
+            # Print errors
+            for msg in tbl["stats"]["errors"]:
+                row = errRow_template.substitute(err=msg)
+                errRows.append(row)
+
+        if "warnings" in tbl["stats"]:
+            # Print warnings
+            for msg in tbl["stats"]["warnings"]:
+                row = warnRow_template.substitute(warn=msg)
+                warnRows.append(row)
 
     # Generate HTML
-    html = html_template.substitute(rows=''.join(rows), warnRows=''.join(warnRows))
+    html = html_template.substitute(
+        rows=''.join(rows),
+        warnRows=''.join(warnRows),
+        errRows=''.join(errRows)
+    )
 
     #=========== WRITE ===========#
     open(outFile, "w").write(html)

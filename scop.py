@@ -16,16 +16,24 @@ def scope(ast):
         "warnings": []
     }
 
-    iterateScopes({"main": procTree})
+    # Generate call table
+    callTbl = getCallTable({ "main": procTree })
+    # print("CALL TABLE", json.dumps(callTbl, indent=4))
+
+    # Check scopes for errors/warnings
+    checkScopes("main", procTree, callTbl)
     print(res)
 
     # Generate scope table
+    print("PROC TREE", json.dumps(procTree, indent=4))
     tbl = getScopeTable(procTree)
-
-    # tbl["stats"] = res
+    # print("SCOPE TABLE", json.dumps(tbl, indent=4))
+    # print("SCOPES", json.dumps(scopes, indent=4))
 
     # Add global variables
     addVariables(tbl, ast)
+
+    tbl["stats"] = res
     
     return tbl
 
@@ -39,7 +47,7 @@ def checkScopeErrors(name, body, siblings, children):
 
 # The procedure declared here is not called from
 # anywhere within the scope to which it belongs
-def checkScopeWarning(name, body, siblings, children):
+def checkScopeWarnings(name, body, siblings, children):
     # RED = "\033[1;31m"
     # GREEN = "\033[1;32m"
     # BLUE = "\033[1;34m"
@@ -74,26 +82,58 @@ def checkScopeWarning(name, body, siblings, children):
 
     return []
 
-def iterateScopes(scope_dict, parent=None, siblings=None):
+# name = name of current scope
+# body = body of current scope
+# parent = name of parent scope
+# siblings = list of sibling scope names
+def checkScopes(name, body, callTbl, parent=None, siblings=[]):
     global res
 
-    siblings = siblings or []
-    for key, value in scope_dict.items():
-        if isinstance(value, dict):
-            # Get the procedure body and children
-            body = {k: v for k, v in value.items() if k not in ['calls', 'id']}
-            children = [k for k, v in value.items() if isinstance(v, dict)]
-            
-            # Get siblings
-            # current_siblings = [k for k in scope_dict.keys() if k != key and isinstance(scope_dict[k], dict)]
-            current_siblings = {k: v for k, v in scope_dict.items() if k != key and isinstance(v, dict)}
+    children = [
+        k for k in body.keys()
+        if k not in ["calls", "id"]
+    ] 
 
-            # Check scopes
-            res["errors"] += checkScopeErrors(key, body, current_siblings, children)
-            res["warnings"] += checkScopeWarning(key, body, current_siblings, children)
+    print()
+    print("NAME", name)
+    print("SIBLINGS", siblings)
+    print("PARENT", parent)
+    print("CHILDREN", children)
+    
+    # Check scoped calls
+    calledInChild = False
+    for child in children:
+        if name in callTbl[child]:
+            calledInChild = True
+            break
 
-            # Recursive call for children
-            iterateScopes(value, parent=key, siblings=list(scope_dict.keys()))
+    calledInSibling = False
+    for sib in siblings:
+        if name in callTbl[sib]:
+            calledInSibling = True
+            break
+
+    calledInSelf = False
+    # Check if parent lists the current node in their calls
+
+    if not (calledInSelf or calledInChild or calledInSibling):
+        res["warnings"] += [f"Procedure {name} is declared but not called within its scope"]
+
+    # res["errors"] += checkScopeErrors(key, body, current_siblings, children)
+    # res["warnings"] += checkScopeWarnings(key, body, current_siblings, children)
+
+    # Recurse
+    for child in children:
+        checkScopes(
+            name=child,
+            body=body[child],
+            callTbl=callTbl,
+            parent=name,
+            siblings=[
+                k for k in body.keys()
+                if k != child and k not in ['calls', 'id']
+            ]
+        )
 
 def checkCallValid(call, procTree):
     # Check call is to direct child procedure
@@ -102,6 +142,26 @@ def checkCallValid(call, procTree):
             return True
     return False
 
+#========== CALL TABLE ==========#
+
+# Summarizes calls each proc makes
+# callTbl = {
+#   "p1": ["p2", "p3"],
+#   "p2": ["p3"],
+#   "p3": []
+# }
+def getCallTable(procTree, result=None):
+    if result is None:
+        result = {}
+        
+    for name, body in procTree.items():
+        if isinstance(body, dict):
+            calls = body.get("calls", [])
+            result[name] = calls
+            getCallTable(body, result)
+            
+    return result
+
 #========== SCOPE TABLE ==========#
 
 scopes = {
@@ -109,11 +169,12 @@ scopes = {
         "main": 1,
     }
 
+# Recursively build scope table from proc tree
 def getScopeTable(procTree, parentScope="main"):
     res = {}
 
     for name, body in procTree.items():
-        scopes[name] = scopes[parentScope] + 1
+        scopes[name] = len(scopes.keys())
 
         if isinstance(body, dict):
             current_scope = parentScope
@@ -121,7 +182,8 @@ def getScopeTable(procTree, parentScope="main"):
             res[body["id"]] = {
                 "name": name,
                 "scope": current_scope,
-                "scopeId": scopes[current_scope]
+                "scopeId": scopes[current_scope],
+                "calls": body.get("calls", [])
             }
 
             # Remove 'calls' and 'id' keys for recursive call
@@ -206,6 +268,7 @@ def getNodePart(node, part):
 def addVariables(tbl, ast):
     vars = traverseForVars(ast)
     for v in vars:
+        # print(">  ", v)
         name = extractVarName(v)
 
         # Check not already in table
