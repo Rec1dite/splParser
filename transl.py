@@ -81,8 +81,8 @@ class Translator:
 
         return res
 
-    def getRandomHex(self):
-        return hex(random.randint(0, 2**32))[2:].zfill(8)
+    def getRandomNum(self):
+        return random.randint(0, 2**32)
 
     def getRandomId(self):
         id = hex(random.randint(0, 2**32))[2:].zfill(8)
@@ -161,7 +161,7 @@ class Translator:
         if self.checkToken(ch, 0, ","):
             # PROCDEFS -> ,PROC PROCDEFS
             self._proc(ch[1])
-            self._procdefs(ch[1])
+            self._procdefs(ch[2])
         else:
             # PROCDEFS -> ε
             pass
@@ -264,6 +264,8 @@ class Translator:
 
     def _loop(self, loop):
         ch = loop["children"]
+        # print("LOOP", dumps(ch, indent=2))
+
         # LOOP -> w(BOOLEXPR)t{ALGO}
         cond = self._boolexpr(ch[2])
 
@@ -339,6 +341,12 @@ class Translator:
             return self._logic(ch[0])
         else:
             # BOOLEXPR -> CMPR
+            # xId = self.getRandomHex()
+
+            # res = "LET x = 0\n"
+            # res += f"LET x{xId} = {self._cmpr(ch[0])}\n"
+            # res += f"IF x{xId} THEN x = 1\n"
+
             # return res
             return f"LET x = {self._cmpr(ch[0])}\n"
 
@@ -365,25 +373,31 @@ class Translator:
 
             if self.checkToken(ch, 0, "^"):
                 # LOGIC -> ^(BOOLEXPR, BOOLEXPR)
+                xA = self.getRandomNum()
+                xB = self.getRandomNum()
+
                 res = self._boolexpr(ch[2]) + "\n"
-                res += "LET xA = x\n"
+                res += f"LET x{xA} = x\n"
                 res += self._boolexpr(ch[4]) + "\n"
-                res += "LET xB = x\n"
+                res += f"LET x{xB} = x\n"
 
                 # Logical AND
-                res += f"IF xA = 0 THEN GOTO {fRef}\n"
-                res += f"IF xB = 0 THEN GOTO {fRef}\n"
+                res += f"IF x{xA} = 0 THEN GOTO {fRef}\n"
+                res += f"IF x{xB} = 0 THEN GOTO {fRef}\n"
                 res += f"GOTO {tRef}\n"
 
             if self.checkToken(ch, 0, "v"):
                 # LOGIC -> v(BOOLEXPR, BOOLEXPR)
+                xA = self.getRandomNum()
+                xB = self.getRandomNum()
+
                 res = self._boolexpr(ch[2]) + "\n"
-                res += "LET xA = x\n"
+                res += f"LET x{xA} = x\n"
                 res += self._boolexpr(ch[4]) + "\n"
-                res += "LET xB = x\n"
+                res += f"LET x{xB} = x\n"
 
                 # Logical OR
-                res += f"IF xA = 0 THEN IF xB = 0 THEN GOTO {fRef}\n"
+                res += f"IF x{xA} = 0 THEN IF x{xB} = 0 THEN GOTO {fRef}\n"
                 res += f"GOTO {tRef}\n"
 
             else:
@@ -395,7 +409,7 @@ class Translator:
                 res += f"GOTO {fRef}\n"
 
             res += f"{tDec}\nLET x = 1\nGOTO {endRef}\n"
-            res += f"{fDec}\nLET x = 0"
+            res += f"{fDec}\nLET x = 0\n"
             res += f"{endDec}\n"
 
             return res

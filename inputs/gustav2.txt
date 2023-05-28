@@ -1,0 +1,16 @@
+i (^(T,^(T,F))) t {
+  s1 := "u r stoopid    ";
+  r s1
+} e {
+  s2 := "works          ";
+  r s2
+};
+
+b1 := ^(^(T,T), F);
+i (^(v(F,T),^(^(T,!(F)),b1))) t {
+  s1 := "u r stoopid    ";
+  r s1
+} e {
+  s2 := "works          ";
+  r s2
+}

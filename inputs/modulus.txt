@@ -1,0 +1,16 @@
+g n6 *first input var*;
+g n9 *second inp. var*;
+
+c p42;
+
+o n42,
+
+p42 {
+    n42 := n6;
+
+    w (v(>(n42, 0.00), E(n42, 0.00))) {
+        n42 := a(n42, m(-1.00, n9)) *   n42 -= n9   *
+    };
+    
+    n42 := a(n42, n9) * n42 = n6 % n9 *
+}

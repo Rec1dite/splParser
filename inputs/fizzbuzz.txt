@@ -1,0 +1,57 @@
+g n1 *fizzbuzz range *;
+
+n2 := 0.00 *loop counter   *;
+
+i (<(n1, 0.00)) t {
+    s0 := "Invalid input  ";
+    r s0;
+    h
+};
+
+c p69,
+
+p69 {
+    s0 := "Start fizzbuzz:";
+    r s0;
+
+    w (<(n2, n1)) {
+        s1 := "Fizz           ";
+        s2 := "Buzz           ";
+        s3 := "FizzBuzz       ";
+
+        n6 := n2;
+        n9 := 15.00;
+        c p42;
+
+        i (E(n42, 0.00)) t { r s3 }
+        e
+        {
+            n6 := n2;
+            n9 := 3.00;
+            c p42;
+
+            i (E(n42, 0.00)) t { r s1 }
+            e
+            {
+                n6 := n2;
+                n9 := 5.00;
+                c p42;
+
+                i (E(0.00, n42)) t { r s2 }
+            }
+        };
+
+        n2 := a(n2, 1.00)
+    }
+
+},
+
+p42 {
+    n42 := n6;
+
+    w (v(>(n42, 0.00), E(n42, 0.00))) {
+        n42 := a(n42, m(-1.00, n9)) *   n42 -= n9   *
+    };
+    
+    n42 := a(n42, n9) * n42 = n6 % n9 *
+}
