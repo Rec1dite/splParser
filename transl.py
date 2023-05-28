@@ -81,6 +81,9 @@ class Translator:
 
         return res
 
+    def getRandomHex(self):
+        return hex(random.randint(0, 2**32))[2:].zfill(8)
+
     def getRandomId(self):
         id = hex(random.randint(0, 2**32))[2:].zfill(8)
         idDec = f">>~~>{id}<~~<<" # declaration / absorption
@@ -251,7 +254,7 @@ class Translator:
         elif self.checkType(ch, 0, "BOOLVAR"):
             # ASSIGN -> BOOLVAR := BOOLEXPR
             cond = self._boolexpr(ch[2])
-            varExpr = "COND"
+            varExpr = "x"
         else:
             # ASSIGN -> STRINGV := STRI
             varName += "$"
@@ -268,9 +271,8 @@ class Translator:
 
         aDec, aRef = self.getRandomId()
         bDec, bRef = self.getRandomId()
-        cDec, cRef = self.getRandomId()
 
-        return f"{aDec}\n{cond}\nIF COND = 1 THEN GOTO {bRef}\nGOTO {cRef}\n{bDec}\n{algo}GOTO {aRef}\n{cDec}\n"
+        return f"{aDec}\n{cond}IF x = 0 THEN GOTO {bRef}\n{algo}GOTO {aRef}\n{bDec}\n"
 
     def _branch(self, branch):
         ch = branch["children"]
@@ -283,7 +285,7 @@ class Translator:
         bDec, bRef = self.getRandomId()
         cDec, cRef = self.getRandomId()
 
-        return f"{cond}\nIF COND = 1 THEN GOTO {bRef}\n{els}GOTO {cRef}\n{bDec}\n{algo}{cDec}\n"
+        return f"{cond}IF x = 0 THEN GOTO {bRef}\n{algo}GOTO {cRef}\n{bDec}\n{els}{cDec}\n"
 
     def _else(self, els):
         ch = els["children"]
@@ -294,8 +296,8 @@ class Translator:
         else:
             # ELSE -> ε
             return ""
-
-    # SIGNIFICANTLY PRUNED
+    
+    # SUFFICIENTLY PRUNED
     # def _numvar(self, numvar):
     # def _boolvar(self, boolvar):
     # def _stringv(self, stringv):
@@ -329,7 +331,7 @@ class Translator:
     # def _int(self, int): # PRUNED
 
     # Generates a sequence of cascading GOTOs to evaluate the boolean expression
-    # Stores the result in a variable called "COND"
+    # Stores the result in a variable called "x"
     def _boolexpr(self, boolexpr):
         ch = boolexpr["children"]
         if self.checkType(ch, 0, "LOGIC"):
@@ -337,54 +339,66 @@ class Translator:
             return self._logic(ch[0])
         else:
             # BOOLEXPR -> CMPR
-            return "LET COND = " + self._cmpr(ch[0]) + "\n"
+            # return res
+            return f"LET x = {self._cmpr(ch[0])}\n"
 
-    def _logic(self, logic, lblT, lblF):
+    def _logic(self, logic):
         ch = logic["children"]
         if self.checkType(ch, 0, "BOOLVAR"):
             # LOGIC -> BOOLVAR
-            return "LET COND = " + ch[0]["value"] + "\n"
+            return "LET x = " + ch[0]["value"] + "\n"
 
         elif self.checkToken(ch, 0, "T"):
             # LOGIC -> T
-            return "LET COND = 1\n"
+            return "LET x = 1\n"
 
         elif self.checkToken(ch, 0, "F"):
             # LOGIC -> F
-            return "LET COND = 0\n"
+            return "LET x = 0\n"
 
-        elif self.checkToken(ch, 0, "^"):
-            # LOGIC -> ^(BOOLEXPR, BOOLEXPR)
-
+        else:
             tDec, tRef = self.getRandomId()
             fDec, fRef = self.getRandomId()
             endDec, endRef = self.getRandomId()
 
-            res = self._boolexpr(ch[2]) + "\n"
-            res += "LET CONDA = COND\n"
+            res = ""
 
-            res += self._boolexpr(ch[4]) + "\n"
-            res += "LET CONDB = COND\n"
+            if self.checkToken(ch, 0, "^"):
+                # LOGIC -> ^(BOOLEXPR, BOOLEXPR)
+                res = self._boolexpr(ch[2]) + "\n"
+                res += "LET xA = x\n"
+                res += self._boolexpr(ch[4]) + "\n"
+                res += "LET xB = x\n"
 
-            res += f"IF CONDA = 1 THEN IF CONDB = 1 THEN GOTO {tRef}\nGOTO {fRef}\n"
+                # Logical AND
+                res += f"IF xA = 0 THEN GOTO {fRef}\n"
+                res += f"IF xB = 0 THEN GOTO {fRef}\n"
+                res += f"GOTO {tRef}\n"
 
-            res += f"{tDec}\nLET COND = 1\nGOTO {endRef}\n"
+            if self.checkToken(ch, 0, "v"):
+                # LOGIC -> v(BOOLEXPR, BOOLEXPR)
+                res = self._boolexpr(ch[2]) + "\n"
+                res += "LET xA = x\n"
+                res += self._boolexpr(ch[4]) + "\n"
+                res += "LET xB = x\n"
 
-            res += f"{fDec}\nLET COND = 0"
-            # tDec: LET COND = 1
-            # GOTO endRef
-            # fDec: LET COND = 0
-            # endRef
+                # Logical OR
+                res += f"IF xA = 0 THEN IF xB = 0 THEN GOTO {fRef}\n"
+                res += f"GOTO {tRef}\n"
 
-            # return ""
+            else:
+                # LOGIC -> !(BOOLEXPR)
+                res = self._boolexpr(ch[2]) + "\n"
 
-        elif self.checkToken(ch, 0, "v"):
-            # LOGIC -> v(BOOLEXPR, BOOLEXPR)
-            return self._boolexpr(ch[2]) + " OR " + self._boolexpr(ch[4])
+                # Logical NOT
+                res += f"IF x = 0 THEN GOTO {tRef}\n"
+                res += f"GOTO {fRef}\n"
 
-        else:
-            # LOGIC -> !(BOOLEXPR)
-            return "NOT " + self._boolexpr(ch[2])
+            res += f"{tDec}\nLET x = 1\nGOTO {endRef}\n"
+            res += f"{fDec}\nLET x = 0"
+            res += f"{endDec}\n"
+
+            return res
 
     def _cmpr(self, cmpr):
         ch = cmpr["children"]
