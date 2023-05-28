@@ -69,7 +69,7 @@ LOGIC       -> BOOLVAR
 LOGIC       -> T | F
 LOGIC       -> ^(BOOLEXPR, BOOLEXPR) //AND conjunction
 LOGIC       -> v(BOOLEXPR, BOOLEXPR) //OR disjunction
-LOGIC       -> !(BOOLEXPR, BOOLEXPR) //NOT disjunction
+LOGIC       -> !(BOOLEXPR) //NOT disjunction
 
 //===== COMPARISON OPERATORS =====//
 CMPR        -> E(NUMEXPR, NUMEXPR) //equality comparison

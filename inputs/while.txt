@@ -1,0 +1,20 @@
+g n1 *start value    *;
+g n2 *increment value*;
+
+c p1 *call main proc *,
+
+p1 {
+  i (>(0.00, n2)) t {
+    
+    s1 := "invalid 2nd arg";
+    r s1
+
+  } e {
+
+    w(<(n1, 1000.00)) {
+      n1 := a(n1, n2);
+      o n1
+    }
+
+  }
+}
