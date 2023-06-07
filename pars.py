@@ -47,7 +47,7 @@ def parse(file):
     print("\033[92m", "PARSING SUCCESS", "\033[0m")
     prune(ast)
 
-    outputJSON(ast, file)
+    # outputJSON(ast, file)
 
     # xmlAST = convertASTForXML(ast)
     # outputXML({"PROGR": xmlAST}, file)

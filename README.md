@@ -1,5 +1,4 @@
-# SPL Parser
-**Dino Gironi** - u21630276
+# SPL Parser / Compiler
 
 > The program takes as input a set of SPL/TXT files, and compiles the code into executable BASIC.
 
@@ -19,4 +18,6 @@ To parse files in bulk, place all input files within the `inputs/` folder (See `
     python3 pars.py -f relative/path/to/yourFile.txt
 ```
 
-For input files in `inputs/`, the final HTML output will be written to `outputs/yourFile.html`.
+For input files in `inputs/`, the final BASIC output will be written to `outputs/yourFile.b`.
+
+Outputs can be run in the [Quite BASIC](https://www.quitebasic.com) interpreter.

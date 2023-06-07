@@ -1,3 +1,13 @@
 {
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "[rocket-mvbasic]": {
+        "editor.codeLens": false
+    },
+    "files.associations": {
+        "**/.rmv/config/*.json": "jsonc"
+    },
+    "files.exclude": {
+        "**/.rmv/catalog/**": true,
+        "*/_*": false
+    }
 }
